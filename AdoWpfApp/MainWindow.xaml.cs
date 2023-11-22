@@ -29,4 +29,5 @@ namespace AdoWpfApp
         {
             //DG_Table.ItemsSource = await databaseManager.ExecuteReaderProducts();
         }
+    }
 }
