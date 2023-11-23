@@ -9,11 +9,11 @@
     <Grid>
         <!-- Добавлен ComboBox для выбора запроса -->
         <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
-            <ComboBoxItem>Show All Students and Grades</ComboBoxItem>
-            <ComboBoxItem>Show All Student Names</ComboBoxItem>
-            <ComboBoxItem>Show Average Grades</ComboBoxItem>
-            <ComboBoxItem>Show Students with Minimum Grade</ComboBoxItem>
-            <ComboBoxItem>Show Subjects with Minimum Average Grades</ComboBoxItem>
+            <ComboBoxItem Content="Show All Students and Grades" Tag="SELECT * FROM Students"/>
+            <ComboBoxItem Content="Show All Student Names" Tag="SELECT Surname, Name, Vatername FROM Students"/>
+            <ComboBoxItem Content="Show Average Grades" Tag="SELECT AVG(Gradeavr) AS AverageGrade FROM Students"/>
+            <ComboBoxItem Content="Show Students with Minimum Grade" Tag="SELECT * FROM Students WHERE Gradeavr > 9.0"/>
+            <ComboBoxItem Content="Show Subjects with Minimum Average Grades" Tag="SELECT DISTINCT Subjectmin FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students)"/>
         </ComboBox>
 
         <!-- Добавлен DataGrid для отображения результатов запроса -->

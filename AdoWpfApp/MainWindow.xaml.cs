@@ -1,7 +1,5 @@
 ﻿using DBEntity;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -41,44 +39,24 @@ namespace AdoWpfApp
             if (ComboBoxQueries.SelectedItem == null)
                 return;
 
-            string selectedQuery = ((ComboBoxItem)ComboBoxQueries.SelectedItem).Content.ToString();
-            string query = "";
+            // Получаем текст запроса из свойства Tag выбранного элемента
+            string selectedQuery = (string)((ComboBoxItem)ComboBoxQueries.SelectedItem).Tag;
 
-            switch (selectedQuery)
-            {
-                case "Show All Students and Grades":
-                    query = "SELECT * FROM Students";
-                    DG_Table.ItemsSource = await databaseManager.Q1 (query);
+            // Выполняем запрос и получаем результат в виде DataTable
+            DataTable resultTable = await databaseManager.ExecuteQuery(selectedQuery);
 
-                    break;
-                case "Show All Student Names":
-                    query = "SELECT Surname, Name, Vatername FROM Students";
-                    break;
-                case "Show Average Grades":
-                    query = "SELECT AVG(Gradeavr) AS AverageGrade FROM Students";
-                    break;
-                case "Show Students with Minimum Grade":
-                    query = "SELECT * FROM Students WHERE Gradeavr > 9.0";
-                    break;
-                case "Show Subjects with Minimum Average Grades":
-                    query = "SELECT DISTINCT Subjectmin FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students)";
-                    break;
-                default:
-                    break;
-            }
-
-            //if (!string.IsNullOrEmpty(query))
-            //{
-
-            //    //var result = await databaseManager.ExecuteReader(query);
-            //    DG_Table.ItemsSource = await databaseManager.ExecuteReader(query);
-            //}
+            // Привязываем результат к DataGrid
+            DG_Table.ItemsSource = resultTable.DefaultView;
         }
+
+
 
         private async Task LoadData()
         {
             // По умолчанию загружаем данные для первого запроса
             ComboBoxQueries.SelectedIndex = 0;
         }
+
+
     }
 }

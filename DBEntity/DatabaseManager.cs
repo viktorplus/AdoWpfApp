@@ -1,7 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Data;
 
 namespace DBEntity
 {
@@ -41,63 +39,28 @@ namespace DBEntity
                 throw new Exception(sql_ex.Message);
             }
         }
+        // Метод для выполнения запроса и возврата результата в виде DataTable
+        public async Task<DataTable> ExecuteQuery(string query)
+        {
+            if (sqlConnection.State != System.Data.ConnectionState.Open)
+            {
+                OpenConnection();
+            }
 
-        //public async Task<List<dynamic>> ExecuteReaderDynamic(string query)
-        //{
-        //    if (sqlConnection.State != System.Data.ConnectionState.Open)
-        //    {
-        //        OpenConnection();
-        //    }
+            DataTable resultTable = new DataTable();
 
-        //    List<dynamic> result = new List<dynamic>();
+            using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+            using (SqlDataReader reader = await sqlCommand.ExecuteReaderAsync())
+            {
+                // Заполняем DataTable данными из результата запроса
+                resultTable.Load(reader);
+            }
 
-        //    using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
-        //    using (SqlDataReader reader = await sqlCommand.ExecuteReaderAsync())
-        //    {
-        //        while (reader.Read())
-        //        {
-        //            var row = new System.Dynamic.ExpandoObject() as IDictionary<string, Object>;
-
-        //            for (int i = 0; i < reader.FieldCount; i++)
-        //            {
-        //                string columnName = reader.GetName(i);
-        //                object value = reader.GetValue(i);
-        //                row[columnName] = value;
-        //            }
-
-        //            result.Add(row);
-        //        }
-        //    }
-
-        //    CloseConnection();
-        //    return result;
-        //}
+            CloseConnection();
+            return resultTable;
+        }
 
 
 
-        // Метод для выполнения запроса с возвращаемым результатом
-
-
-        //// Метод для выполнения запроса с возвращаемым скалярным результатом
-        //public async Task<T> ExecuteScalar<T>(string query)
-        //{
-        //    if (sqlConnection.State != System.Data.ConnectionState.Open)
-        //    {
-        //        OpenConnection();
-        //    }
-
-        //    using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
-        //    {
-        //        object result = await sqlCommand.ExecuteScalarAsync();
-        //        CloseConnection();
-
-        //        if (result != null && result != DBNull.Value)
-        //        {
-        //            return (T)result;
-        //        }
-
-        //        return default(T);
-        //    }
-        //}
     }
 }
