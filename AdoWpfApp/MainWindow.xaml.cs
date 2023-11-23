@@ -48,6 +48,8 @@ namespace AdoWpfApp
             {
                 case "Show All Students and Grades":
                     query = "SELECT * FROM Students";
+                    DG_Table.ItemsSource = await databaseManager.Q1 (query);
+
                     break;
                 case "Show All Student Names":
                     query = "SELECT Surname, Name, Vatername FROM Students";
@@ -65,12 +67,12 @@ namespace AdoWpfApp
                     break;
             }
 
-            if (!string.IsNullOrEmpty(query))
-            {
+            //if (!string.IsNullOrEmpty(query))
+            //{
 
-                var result = await databaseManager.ExecuteReader(query);
-                DG_Table.ItemsSource = await databaseManager.ExecuteReader(query);
-            }
+            //    //var result = await databaseManager.ExecuteReader(query);
+            //    DG_Table.ItemsSource = await databaseManager.ExecuteReader(query);
+            //}
         }
 
         private async Task LoadData()

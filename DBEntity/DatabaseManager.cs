@@ -42,7 +42,7 @@ namespace DBEntity
             }
         }
 
-        //public async Task<List<dynamic>> ExecuteReader(string query)
+        //public async Task<List<dynamic>> ExecuteReaderDynamic(string query)
         //{
         //    if (sqlConnection.State != System.Data.ConnectionState.Open)
         //    {
@@ -76,37 +76,7 @@ namespace DBEntity
 
 
         // Метод для выполнения запроса с возвращаемым результатом
-        public async Task<List<Student>> ExecuteReader(string query)
-        {
-            if (sqlConnection.State != System.Data.ConnectionState.Open)
-            {
-                OpenConnection();
-            }
 
-            List<Student> result = new List<Student>();
-
-            using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
-            using (SqlDataReader reader = await sqlCommand.ExecuteReaderAsync())
-            {
-                while (reader.Read())
-                {
-                    result.Add(new Student
-                    {
-                        StudentID = (int)reader["StudentID"],
-                        Surname = reader["Surname"].ToString(),
-                        Name = reader["Name"].ToString(),
-                        Vatername = reader["Vatername"].ToString(),
-                        GroupName = reader["GroupName"].ToString(),
-                        Gradeavr = Convert.ToDecimal(reader["Gradeavr"]),
-                        Subjectmin = reader["Subjectmin"].ToString(),
-                        Subjectmax = reader["Subjectmax"].ToString()
-                    });
-                }
-            }
-
-            CloseConnection();
-            return result;
-        }
 
         //// Метод для выполнения запроса с возвращаемым скалярным результатом
         //public async Task<T> ExecuteScalar<T>(string query)
