@@ -70,37 +70,6 @@ namespace AdoWpfApp
 
                 var result = await databaseManager.ExecuteReader(query);
                 DG_Table.ItemsSource = await databaseManager.ExecuteReader(query);
-
-
-                // Вывести результат в консоль для отладки
-                foreach (var item in result)
-                {
-                    string output = "";
-
-                    switch (selectedQuery)
-                    {
-                        case "Show All Students and Grades":
-                            output = $"{item.StudentID}, {item.Surname}, {item.Name}, {item.Vatername}, {item.GroupName}, {item.Gradeavr}, {item.Subjectmin}, {item.Subjectmax}";
-                            break;
-                        case "Show All Student Names":
-                            output = $"{item.Surname}, {item.Name}, {item.Vatername}";
-                            break;
-                        case "Show Average Grades":
-                            output = $"Average Grade: {item.AverageGrade}";
-                            break;
-                        case "Show Students with Minimum Grade":
-                            output = $"{item.StudentID}, {item.Surname}, {item.Name}, {item.Vatername}, {item.GroupName}, {item.Gradeavr}, {item.Subjectmin}, {item.Subjectmax}";
-                            break;
-                        case "Show Subjects with Minimum Average Grades":
-                            output = $"Subject with Minimum Average Grade: {item.Subjectmin}";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    Debug.WriteLine(output); 
-
-                }
             }
         }
 
