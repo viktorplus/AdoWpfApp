@@ -8,21 +8,17 @@
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
-            <ComboBoxItem Content="Відображення всієї інформації з таблиці овочів і фруктів." Tag="SELECT * FROM VegetablesAndFruits"/>
-            <ComboBoxItem Content="Відображення усіх назв овочів і фруктів." Tag="SELECT Name FROM VegetablesAndFruits"/>
-            <ComboBoxItem Content="Відображення усіх кольорів." Tag="SELECT DISTINCT Color FROM VegetablesAndFruits"/>
-            <ComboBoxItem Content="Показати максимальну калорійність." Tag="SELECT MAX(Calories) FROM VegetablesAndFruits"/>
-            <ComboBoxItem Content="Показати мінімальну калорійність." Tag="SELECT MIN(Calories) FROM VegetablesAndFruits"/>
-            <ComboBoxItem Content="Показати середню калорійність." Tag="SELECT AVG(Calories) FROM VegetablesAndFruits"/>
-            <ComboBoxItem Content="Показати кількість овочів." Tag="SELECT COUNT(*) FROM VegetablesAndFruits WHERE Type = 'овоч'"/>
-            <ComboBoxItem Content="Показати кількість фруктів." Tag="SELECT COUNT(*) FROM VegetablesAndFruits WHERE Type = 'фрукт'"/>
-            <ComboBoxItem Content="Показати кількість овочів і фруктів red кольору." Tag="SELECT COUNT(*) FROM VegetablesAndFruits WHERE Color = 'червоний'"/>
-            <ComboBoxItem Content="Показати кількість овочів і фруктів кожного кольору." Tag="SELECT Color, COUNT(*) FROM VegetablesAndFruits GROUP BY Color"/>
-            <ComboBoxItem Content="Показати овочі та фрукти з калорійністю нижче  50." Tag= "SELECT * FROM VegetablesAndFruits WHERE 50 > Calories"/>
-            <ComboBoxItem Content="Показати овочі та фрукти з калорійністю вище  50." Tag="SELECT * FROM VegetablesAndFruits WHERE Calories > 50"/>
-            <ComboBoxItem Content="Показати овочі та фрукти з калорійністю у BETWEEN 40 AND 70 діапазоні." Tag="SELECT * FROM VegetablesAndFruits WHERE Calories BETWEEN 40 AND 70"/>
-            <ComboBoxItem Content="Показати усі овочі та фрукти жовтого або червоного кольору." Tag="SELECT * FROM VegetablesAndFruits WHERE Color IN ('жовтий', 'червоний')"/>
-
+            <ComboBoxItem Content="Відображення всієї інформації про товар" Tag="SELECT * FROM Products"/>
+            <ComboBoxItem Content="Відображення всіх типів товарів" Tag="SELECT * FROM ProductTypes"/>
+            <ComboBoxItem Content="Відображення всіх постачальників" Tag="SELECT * FROM Suppliers"/>
+            <ComboBoxItem Content="Показати товар з максимальною кількістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Quantity DESC"/>
+            <ComboBoxItem Content="Показати товар з мінімальною кількістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Quantity ASC"/>
+            <ComboBoxItem Content="Показати товар з мінімальною собівартістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Cost ASC"/>
+            <ComboBoxItem Content="Показати товар з максимальною собівартістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Cost DESC"/>
+            <ComboBoxItem Content="Показати товари категорії Електроніка" Tag="SELECT * FROM Products WHERE ProductTypeID = 1"/>
+            <ComboBoxItem Content="Показати товари заданого постачальника ID=1 " Tag="SELECT * FROM Products WHERE SupplierID = 1"/>
+            <ComboBoxItem Content="Показати товар, який знаходиться на складі найдовше з усіх" Tag="SELECT TOP 1 * FROM Products ORDER BY SupplyDate ASC"/>
+            <ComboBoxItem Content="Показати середню кількість товарів за кожним типом товару" Tag= "SELECT ProductTypes.TypeName, AVG(Products.Quantity) AS AverageQuantity FROM Products INNER JOIN ProductTypes ON Products.ProductTypeID = ProductTypes.ID GROUP BY ProductTypes.TypeName;"/>
         </ComboBox>
 
         <DataGrid x:Name="DG_Table" Margin="0,30,0,0" AutoGenerateColumns="True"/>
