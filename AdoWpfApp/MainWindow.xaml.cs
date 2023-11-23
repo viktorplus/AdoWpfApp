@@ -19,17 +19,17 @@ namespace AdoWpfApp
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var result = databaseManager.OpenConnection();
-            try
-            {
-                if (result)
-                {
-                    MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            //try
+            //{
+            //    if (result)
+            //    {
+            //        MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //}
 
             await LoadData();
         }
@@ -39,21 +39,13 @@ namespace AdoWpfApp
             if (ComboBoxQueries.SelectedItem == null)
                 return;
 
-            // Получаем текст запроса из свойства Tag выбранного элемента
             string selectedQuery = (string)((ComboBoxItem)ComboBoxQueries.SelectedItem).Tag;
-
-            // Выполняем запрос и получаем результат в виде DataTable
             DataTable resultTable = await databaseManager.ExecuteQuery(selectedQuery);
-
-            // Привязываем результат к DataGrid
             DG_Table.ItemsSource = resultTable.DefaultView;
         }
 
-
-
         private async Task LoadData()
         {
-            // По умолчанию загружаем данные для первого запроса
             ComboBoxQueries.SelectedIndex = 0;
         }
 
