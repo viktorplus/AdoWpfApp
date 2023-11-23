@@ -8,11 +8,17 @@
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
-            <ComboBoxItem Content="Show All Students and Grades" Tag="SELECT * FROM Students"/>
-            <ComboBoxItem Content="Show All Student Names" Tag="SELECT Surname, Name, Vatername FROM Students"/>
-            <ComboBoxItem Content="Show Average Grades" Tag="SELECT AVG(Gradeavr) AS AverageGrade FROM Students"/>
-            <ComboBoxItem Content="Show Students with Minimum Grade" Tag="SELECT * FROM Students WHERE Gradeavr > 9.0"/>
-            <ComboBoxItem Content="Show Subjects with Minimum Average Grades" Tag="SELECT DISTINCT Subjectmin FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students)"/>
+            <ComboBoxItem Content="Відображати всієї інформації з таблиці зі студентами та оцінками" Tag="SELECT * FROM Students"/>
+            <ComboBoxItem Content="Відображати ПІБ усіх студентів." Tag="SELECT Surname, Name, Vatername FROM Students"/>
+            <ComboBoxItem Content="Відображати усіх середніх оцінок." Tag="SELECT AVG(Gradeavr) AS AverageGrade FROM Students"/>
+            <ComboBoxItem Content="Показати ПІБ усіх студентів з мінімальною оцінкою, більшою, ніж зазначена." Tag="SELECT * FROM Students WHERE Gradeavr > 9.0"/>
+            <ComboBoxItem Content="Показати назви усіх предметів із мінімальними середніми оцінками. Назви предметів мають бути унікальними." Tag="SELECT DISTINCT Subjectmin FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students)"/>
+            <ComboBoxItem Content="Показати мінімальну середню оцінку" Tag="SELECT MIN(Gradeavr) AS MinAverageGrade FROM Students"/>
+            <ComboBoxItem Content="Показати максимальну середню оцінку" Tag="SELECT MAX(Gradeavr) AS MaxAverageGrade FROM Students"/>
+            <ComboBoxItem Content="Показати кількість студентів з мінімальною середньою оцінкою з математики" Tag="SELECT COUNT(*) AS CountMinMathGrade FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students WHERE Subjectmin = 'математика')"/>
+            <ComboBoxItem Content="Показати кількість студентів, в яких максимальна середня оцінка з математики" Tag="SELECT COUNT(*) AS CountMaxMathGrade FROM Students WHERE Gradeavr = (SELECT MAX(Gradeavr) FROM Students WHERE Subjectmin = 'математика')"/>
+            <ComboBoxItem Content="Показати кількість студентів у кожній групі" Tag="SELECT GroupName, COUNT(*) AS StudentCount FROM Students GROUP BY GroupName"/>
+            <ComboBoxItem Content="Показати середню оцінку групи" Tag="SELECT GroupName, AVG(Gradeavr) AS AverageGroupGrade FROM Students GROUP BY GroupName"/>
         </ComboBox>
 
         <DataGrid x:Name="DG_Table" Margin="0,30,0,0" AutoGenerateColumns="True"/>
