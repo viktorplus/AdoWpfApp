@@ -42,32 +42,30 @@ namespace DBEntity
             }
         }
 
-        // Метод для выполнения запроса с возвращаемым результатом
-        public async Task<List<Student>> ExecuteReader(string query)
+        public async Task<List<dynamic>> ExecuteReader(string query)
         {
             if (sqlConnection.State != System.Data.ConnectionState.Open)
             {
                 OpenConnection();
             }
 
-            List<Student> result = new List<Student>();
+            List<dynamic> result = new List<dynamic>();
 
             using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
             using (SqlDataReader reader = await sqlCommand.ExecuteReaderAsync())
             {
                 while (reader.Read())
                 {
-                    result.Add(new Student
+                    var row = new System.Dynamic.ExpandoObject() as IDictionary<string, Object>;
+
+                    for (int i = 0; i < reader.FieldCount; i++)
                     {
-                        StudentID = (int)reader["StudentID"],
-                        Surname = reader["Surname"].ToString(),
-                        Name = reader["Name"].ToString(),
-                        Vatername = reader["Vatername"].ToString(),
-                        GroupName = reader["GroupName"].ToString(),
-                        Gradeavr = Convert.ToDecimal(reader["Gradeavr"]),
-                        Subjectmin = reader["Subjectmin"].ToString(),
-                        Subjectmax = reader["Subjectmax"].ToString()
-                    });
+                        string columnName = reader.GetName(i);
+                        object value = reader.GetValue(i);
+                        row[columnName] = value;
+                    }
+
+                    result.Add(row);
                 }
             }
 
@@ -75,26 +73,61 @@ namespace DBEntity
             return result;
         }
 
-        // Метод для выполнения запроса с возвращаемым скалярным результатом
-        public async Task<T> ExecuteScalar<T>(string query)
-        {
-            if (sqlConnection.State != System.Data.ConnectionState.Open)
-            {
-                OpenConnection();
-            }
 
-            using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
-            {
-                object result = await sqlCommand.ExecuteScalarAsync();
-                CloseConnection();
 
-                if (result != null && result != DBNull.Value)
-                {
-                    return (T)result;
-                }
+        //// Метод для выполнения запроса с возвращаемым результатом
+        //public async Task<List<Student>> ExecuteReader(string query)
+        //{
+        //    if (sqlConnection.State != System.Data.ConnectionState.Open)
+        //    {
+        //        OpenConnection();
+        //    }
 
-                return default(T);
-            }
-        }
+        //    List<Student> result = new List<Student>();
+
+        //    using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+        //    using (SqlDataReader reader = await sqlCommand.ExecuteReaderAsync())
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            result.Add(new Student
+        //            {
+        //                StudentID = (int)reader["StudentID"],
+        //                Surname = reader["Surname"].ToString(),
+        //                Name = reader["Name"].ToString(),
+        //                Vatername = reader["Vatername"].ToString(),
+        //                GroupName = reader["GroupName"].ToString(),
+        //                Gradeavr = Convert.ToDecimal(reader["Gradeavr"]),
+        //                Subjectmin = reader["Subjectmin"].ToString(),
+        //                Subjectmax = reader["Subjectmax"].ToString()
+        //            });
+        //        }
+        //    }
+
+        //    CloseConnection();
+        //    return result;
+        //}
+
+        //// Метод для выполнения запроса с возвращаемым скалярным результатом
+        //public async Task<T> ExecuteScalar<T>(string query)
+        //{
+        //    if (sqlConnection.State != System.Data.ConnectionState.Open)
+        //    {
+        //        OpenConnection();
+        //    }
+
+        //    using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+        //    {
+        //        object result = await sqlCommand.ExecuteScalarAsync();
+        //        CloseConnection();
+
+        //        if (result != null && result != DBNull.Value)
+        //        {
+        //            return (T)result;
+        //        }
+
+        //        return default(T);
+        //    }
+        //}
     }
 }

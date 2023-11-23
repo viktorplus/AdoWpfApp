@@ -1,6 +1,7 @@
 ﻿using DBEntity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,20 +33,17 @@ namespace AdoWpfApp
                 MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            // Загрузка данных при открытии окна (можете изменить логику в соответствии с вашими требованиями)
             await LoadData();
         }
 
         private async void ComboBoxQueries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Проверка, выбран ли элемент в ComboBox
             if (ComboBoxQueries.SelectedItem == null)
                 return;
 
             string selectedQuery = ((ComboBoxItem)ComboBoxQueries.SelectedItem).Content.ToString();
             string query = "";
 
-            // Обработка выбранного запроса
             switch (selectedQuery)
             {
                 case "Show All Students and Grades":
@@ -58,7 +56,6 @@ namespace AdoWpfApp
                     query = "SELECT AVG(Gradeavr) AS AverageGrade FROM Students";
                     break;
                 case "Show Students with Minimum Grade":
-                    // Предполагается, что вы установите минимальную оценку, например, 9.0
                     query = "SELECT * FROM Students WHERE Gradeavr > 9.0";
                     break;
                 case "Show Subjects with Minimum Average Grades":
@@ -68,10 +65,42 @@ namespace AdoWpfApp
                     break;
             }
 
-            // Если запрос не пустой, выполняем его и отображаем результат в DataGrid
             if (!string.IsNullOrEmpty(query))
             {
+
+                var result = await databaseManager.ExecuteReader(query);
                 DG_Table.ItemsSource = await databaseManager.ExecuteReader(query);
+
+
+                // Вывести результат в консоль для отладки
+                foreach (var item in result)
+                {
+                    string output = "";
+
+                    switch (selectedQuery)
+                    {
+                        case "Show All Students and Grades":
+                            output = $"{item.StudentID}, {item.Surname}, {item.Name}, {item.Vatername}, {item.GroupName}, {item.Gradeavr}, {item.Subjectmin}, {item.Subjectmax}";
+                            break;
+                        case "Show All Student Names":
+                            output = $"{item.Surname}, {item.Name}, {item.Vatername}";
+                            break;
+                        case "Show Average Grades":
+                            output = $"Average Grade: {item.AverageGrade}";
+                            break;
+                        case "Show Students with Minimum Grade":
+                            output = $"{item.StudentID}, {item.Surname}, {item.Name}, {item.Vatername}, {item.GroupName}, {item.Gradeavr}, {item.Subjectmin}, {item.Subjectmax}";
+                            break;
+                        case "Show Subjects with Minimum Average Grades":
+                            output = $"Subject with Minimum Average Grade: {item.Subjectmin}";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    Debug.WriteLine(output); 
+
+                }
             }
         }
 
