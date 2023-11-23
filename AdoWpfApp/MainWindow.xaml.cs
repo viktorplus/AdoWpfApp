@@ -19,17 +19,17 @@ namespace AdoWpfApp
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var result = databaseManager.OpenConnection();
-            //try
-            //{
-            //    if (result)
-            //    {
-            //        MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //}
+            try
+            {
+                if (result)
+                {
+                    MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
             await LoadData();
         }
