@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AdoWpfApp\" />
+  </ItemGroup>
+
 </Project>

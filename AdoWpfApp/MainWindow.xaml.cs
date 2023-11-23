@@ -42,5 +42,39 @@ namespace AdoWpfApp
 
             //DG_Table.ItemsSource = await databaseManager.ExecuteReaderProducts();
         }
+
+        private async void ComboBoxQueries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedQuery = ((ComboBoxItem)ComboBoxQueries.SelectedItem).Content.ToString();
+            string query = "";
+
+            switch (selectedQuery)
+            {
+                case "Show All Students and Grades":
+                    query = "SELECT * FROM Students";
+                    break;
+                case "Show All Student Names":
+                    query = "SELECT Surname, Name, Vatername FROM Students";
+                    break;
+                case "Show Average Grades":
+                    query = "SELECT AVG(Gradeavr) AS AverageGrade FROM Students";
+                    break;
+                case "Show Students with Minimum Grade":
+                    // Предполагается, что вы установите минимальную оценку, например, 9.0
+                    query = "SELECT Surname, Name, Vatername FROM Students WHERE Gradeavr > 9.0";
+                    break;
+                case "Show Subjects with Minimum Average Grades":
+                    query = "SELECT DISTINCT Subjectmin FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students)";
+                    break;
+                default:
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                DG_Table.ItemsSource = await databaseManager.ExecuteReader(query);
+            }
+        }
+
     }
 }

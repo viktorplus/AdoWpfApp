@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:AdoWpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <DataGrid x:Name="DG_Table">
+    <Grid>
+        <ComboBox x:Name="ComboBoxQueries" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10" SelectionChanged="ComboBoxQueries_SelectionChanged">
+            <ComboBoxItem Content="Show All Students and Grades"/>
+            <ComboBoxItem Content="Show All Student Names"/>
+            <ComboBoxItem Content="Show Average Grades"/>
+            <ComboBoxItem Content="Show Students with Minimum Grade"/>
+            <ComboBoxItem Content="Show Subjects with Minimum Average Grades"/>
+        </ComboBox>
 
-    </DataGrid>
+        <DataGrid x:Name="DG_Table" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0">
+
+        </DataGrid>
+    </Grid>
 </Window>
