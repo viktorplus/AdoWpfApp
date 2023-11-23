@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "inanK6LTGslX9ntGVQWwnZLA8HR60cz3BbmesEaFa3UzQZyqTVbh37uIIo2wUy6QCKHFKxKcfASm80rkUwnUFg==",
+  "dgSpecHash": "r9NRK/INZsX5+Dc9ky2dWy15IbHqJxBfZU0hrI8jsjWd21UFKpAssdVjxxhzEPD2Pa+HjNjf3QLVzbVJvlf8NA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\DBEntity.csproj",
+  "projectFilePath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\DBEntity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cp24\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\cp24\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

@@ -18,7 +18,7 @@ namespace AdoWpfApp
     public partial class MainWindow : Window
     {
         DatabaseManager databaseManager;
-        const string ConnectionString = @"Data Source=HomeDE\SQLEXPRESS;Initial Catalog=Warehouse;Integrated Security=True;Encrypt=False";
+        const string ConnectionString = @"Data Source=HOMEDE\SQLEXPRESS;Initial Catalog=Student;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
         public MainWindow()
 
         {
@@ -27,6 +27,19 @@ namespace AdoWpfApp
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            var result = databaseManager.OpenConnection();
+            try
+            {
+                if (result)
+                {
+                    MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             //DG_Table.ItemsSource = await databaseManager.ExecuteReaderProducts();
         }
     }

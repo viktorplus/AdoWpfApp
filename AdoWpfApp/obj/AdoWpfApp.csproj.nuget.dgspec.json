@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\AdoWpfApp\\AdoWpfApp.csproj": {}
+    "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\AdoWpfApp\\AdoWpfApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\AdoWpfApp\\AdoWpfApp.csproj": {
+    "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\AdoWpfApp\\AdoWpfApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\AdoWpfApp\\AdoWpfApp.csproj",
+        "projectUniqueName": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\AdoWpfApp\\AdoWpfApp.csproj",
         "projectName": "AdoWpfApp",
-        "projectPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\AdoWpfApp\\AdoWpfApp.csproj",
+        "projectPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\AdoWpfApp\\AdoWpfApp.csproj",
         "packagesPath": "C:\\Users\\cp24\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\AdoWpfApp\\obj\\",
+        "outputPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\AdoWpfApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net7.0-windows7.0": {
             "targetAlias": "net7.0-windows",
             "projectReferences": {
-              "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\DBEntity.csproj": {
-                "projectPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\DBEntity.csproj"
+              "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\DBEntity.csproj": {
+                "projectPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\DBEntity.csproj"
               }
             }
           }
@@ -70,14 +70,14 @@
         }
       }
     },
-    "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\DBEntity.csproj": {
+    "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\DBEntity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\DBEntity.csproj",
+        "projectUniqueName": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\DBEntity.csproj",
         "projectName": "DBEntity",
-        "projectPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\DBEntity.csproj",
+        "projectPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\DBEntity.csproj",
         "packagesPath": "C:\\Users\\cp24\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\DBEntity\\obj\\",
+        "outputPath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\DBEntity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
