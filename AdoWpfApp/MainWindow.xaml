@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <ComboBox x:Name="ComboBoxQueries" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="10" SelectionChanged="ComboBoxQueries_SelectionChanged">
-            <ComboBoxItem Content="Show All Students and Grades"/>
-            <ComboBoxItem Content="Show All Student Names"/>
-            <ComboBoxItem Content="Show Average Grades"/>
-            <ComboBoxItem Content="Show Students with Minimum Grade"/>
-            <ComboBoxItem Content="Show Subjects with Minimum Average Grades"/>
+        <!-- Добавлен ComboBox для выбора запроса -->
+        <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
+            <ComboBoxItem>Show All Students and Grades</ComboBoxItem>
+            <ComboBoxItem>Show All Student Names</ComboBoxItem>
+            <ComboBoxItem>Show Average Grades</ComboBoxItem>
+            <ComboBoxItem>Show Students with Minimum Grade</ComboBoxItem>
+            <ComboBoxItem>Show Subjects with Minimum Average Grades</ComboBoxItem>
         </ComboBox>
 
-        <DataGrid x:Name="DG_Table" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0">
-
-        </DataGrid>
+        <!-- Добавлен DataGrid для отображения результатов запроса -->
+        <DataGrid x:Name="DG_Table" Margin="0,30,0,0" AutoGenerateColumns="True"/>
     </Grid>
 </Window>
