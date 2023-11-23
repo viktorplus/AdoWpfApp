@@ -8,17 +8,21 @@
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
         <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
-            <ComboBoxItem Content="Відображати всієї інформації з таблиці зі студентами та оцінками" Tag="SELECT * FROM Students"/>
-            <ComboBoxItem Content="Відображати ПІБ усіх студентів." Tag="SELECT Surname, Name, Vatername FROM Students"/>
-            <ComboBoxItem Content="Відображати усіх середніх оцінок." Tag="SELECT AVG(Gradeavr) AS AverageGrade FROM Students"/>
-            <ComboBoxItem Content="Показати ПІБ усіх студентів з мінімальною оцінкою, більшою, ніж зазначена." Tag="SELECT * FROM Students WHERE Gradeavr > 9.0"/>
-            <ComboBoxItem Content="Показати назви усіх предметів із мінімальними середніми оцінками. Назви предметів мають бути унікальними." Tag="SELECT DISTINCT Subjectmin FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students)"/>
-            <ComboBoxItem Content="Показати мінімальну середню оцінку" Tag="SELECT MIN(Gradeavr) AS MinAverageGrade FROM Students"/>
-            <ComboBoxItem Content="Показати максимальну середню оцінку" Tag="SELECT MAX(Gradeavr) AS MaxAverageGrade FROM Students"/>
-            <ComboBoxItem Content="Показати кількість студентів з мінімальною середньою оцінкою з математики" Tag="SELECT COUNT(*) AS CountMinMathGrade FROM Students WHERE Gradeavr = (SELECT MIN(Gradeavr) FROM Students WHERE Subjectmin = 'математика')"/>
-            <ComboBoxItem Content="Показати кількість студентів, в яких максимальна середня оцінка з математики" Tag="SELECT COUNT(*) AS CountMaxMathGrade FROM Students WHERE Gradeavr = (SELECT MAX(Gradeavr) FROM Students WHERE Subjectmin = 'математика')"/>
-            <ComboBoxItem Content="Показати кількість студентів у кожній групі" Tag="SELECT GroupName, COUNT(*) AS StudentCount FROM Students GROUP BY GroupName"/>
-            <ComboBoxItem Content="Показати середню оцінку групи" Tag="SELECT GroupName, AVG(Gradeavr) AS AverageGroupGrade FROM Students GROUP BY GroupName"/>
+            <ComboBoxItem Content="Відображення всієї інформації з таблиці овочів і фруктів." Tag="SELECT * FROM VegetablesAndFruits"/>
+            <ComboBoxItem Content="Відображення усіх назв овочів і фруктів." Tag="SELECT Name FROM VegetablesAndFruits"/>
+            <ComboBoxItem Content="Відображення усіх кольорів." Tag="SELECT DISTINCT Color FROM VegetablesAndFruits"/>
+            <ComboBoxItem Content="Показати максимальну калорійність." Tag="SELECT MAX(Calories) FROM VegetablesAndFruits"/>
+            <ComboBoxItem Content="Показати мінімальну калорійність." Tag="SELECT MIN(Calories) FROM VegetablesAndFruits"/>
+            <ComboBoxItem Content="Показати середню калорійність." Tag="SELECT AVG(Calories) FROM VegetablesAndFruits"/>
+            <ComboBoxItem Content="Показати кількість овочів." Tag="SELECT COUNT(*) FROM VegetablesAndFruits WHERE Type = 'овоч'"/>
+            <ComboBoxItem Content="Показати кількість фруктів." Tag="SELECT COUNT(*) FROM VegetablesAndFruits WHERE Type = 'фрукт'"/>
+            <ComboBoxItem Content="Показати кількість овочів і фруктів red кольору." Tag="SELECT COUNT(*) FROM VegetablesAndFruits WHERE Color = 'червоний'"/>
+            <ComboBoxItem Content="Показати кількість овочів і фруктів кожного кольору." Tag="SELECT Color, COUNT(*) FROM VegetablesAndFruits GROUP BY Color"/>
+            <ComboBoxItem Content="Показати овочі та фрукти з калорійністю нижче  50." Tag= "SELECT * FROM VegetablesAndFruits WHERE 50 > Calories"/>
+            <ComboBoxItem Content="Показати овочі та фрукти з калорійністю вище  50." Tag="SELECT * FROM VegetablesAndFruits WHERE Calories > 50"/>
+            <ComboBoxItem Content="Показати овочі та фрукти з калорійністю у BETWEEN 40 AND 70 діапазоні." Tag="SELECT * FROM VegetablesAndFruits WHERE Calories BETWEEN 40 AND 70"/>
+            <ComboBoxItem Content="Показати усі овочі та фрукти жовтого або червоного кольору." Tag="SELECT * FROM VegetablesAndFruits WHERE Color IN ('жовтий', 'червоний')"/>
+
         </ComboBox>
 
         <DataGrid x:Name="DG_Table" Margin="0,30,0,0" AutoGenerateColumns="True"/>
