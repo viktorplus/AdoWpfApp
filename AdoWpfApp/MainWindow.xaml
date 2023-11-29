@@ -11,16 +11,10 @@
             <ComboBoxItem Content="Відображення всієї інформації про товар" Tag="SELECT * FROM Products"/>
             <ComboBoxItem Content="Відображення всіх типів товарів" Tag="SELECT * FROM ProductTypes"/>
             <ComboBoxItem Content="Відображення всіх постачальників" Tag="SELECT * FROM Suppliers"/>
-            <ComboBoxItem Content="Показати товар з максимальною кількістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Quantity DESC"/>
-            <ComboBoxItem Content="Показати товар з мінімальною кількістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Quantity ASC"/>
-            <ComboBoxItem Content="Показати товар з мінімальною собівартістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Cost ASC"/>
-            <ComboBoxItem Content="Показати товар з максимальною собівартістю" Tag="SELECT TOP 1 * FROM Products ORDER BY Cost DESC"/>
-            <ComboBoxItem Content="Показати товари категорії Електроніка" Tag="SELECT * FROM Products WHERE ProductTypeID = 1"/>
-            <ComboBoxItem Content="Показати товари заданого постачальника ID=1 " Tag="SELECT * FROM Products WHERE SupplierID = 1"/>
-            <ComboBoxItem Content="Показати товар, який знаходиться на складі найдовше з усіх" Tag="SELECT TOP 1 * FROM Products ORDER BY SupplyDate ASC"/>
-            <ComboBoxItem Content="Показати середню кількість товарів за кожним типом товару" Tag= "SELECT ProductTypes.TypeName, AVG(Products.Quantity) AS AverageQuantity FROM Products INNER JOIN ProductTypes ON Products.ProductTypeID = ProductTypes.ID GROUP BY ProductTypes.TypeName;"/>
+
         </ComboBox>
 
         <DataGrid x:Name="DG_Table" Margin="0,30,0,0" AutoGenerateColumns="True"/>
+
     </Grid>
 </Window>
