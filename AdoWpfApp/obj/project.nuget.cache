@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "u0gKZKutSCrg4s5Ej+m8f+IBGKQSHV+3xup1hEAunFJtmO4huK/dDygJjWQCvu/ekRy43Oizr0bCcC68ZUqYqg==",
+  "dgSpecHash": "kbXk0mi64x9gdjok1vPdJ05gWohNi892O1/8NuGvWX18/cuMGcHP9LIrD3T9UwBcgKFHQgS2dlJcjKbo23wmsA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET--\\AdoWpfApp\\AdoWpfApp.csproj",
+  "projectFilePath": "C:\\Users\\cp24\\Мой диск\\!SCHAG\\ADO.NET\\AdoWpfApp\\AdoWpfApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cp24\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\cp24\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
