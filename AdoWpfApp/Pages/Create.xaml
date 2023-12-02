@@ -22,33 +22,54 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Первая строка -->
-        <TextBlock Text="Product Name:" VerticalAlignment="Center" Grid.Column="0"/>
-        <TextBox x:Name="TextBoxProductName" Margin="5" Width="200" Grid.Column="1" Grid.Row="0"/>
-
-        <!-- Вторая строка -->
+        <!-- Добавление нового продукта -->
+        <TextBlock Text="Добавление нового продукта" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="0"/>
         <TextBlock Text="Product Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
-        <ComboBox x:Name="ComboBoxProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="1"/>
+        <TextBox x:Name="TextBoxProductName" Margin="5" Width="200" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Text="Product Type:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+        <ComboBox x:Name="ComboBoxProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="2"/>
+        <TextBlock Text="Supplier:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
+        <ComboBox x:Name="ComboBoxSupplier" Margin="5" Width="200" Grid.Column="1" Grid.Row="3"/>
+        <TextBlock Text="Quantity:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
+        <TextBox x:Name="TextBoxQuantity" Margin="5" Width="200" Grid.Column="1" Grid.Row="4"/>
+        <TextBlock Text="Cost:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
+        <TextBox x:Name="TextBoxCost" Margin="5" Width="200" Grid.Column="1" Grid.Row="5"/>
+        <TextBlock Text="Supply Date:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
+        <DatePicker x:Name="DatePickerSupplyDate" Margin="5" Width="200" Grid.Column="1" Grid.Row="6"/>
+        <Button Content="Добавить продукт" Click="AddProduct_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="7"/>
 
-        <!-- Третья строка -->
-        <TextBlock Text="Supplier:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
-        <ComboBox x:Name="ComboBoxSupplier" Margin="5" Width="200" Grid.Column="1" Grid.Row="2"/>
+        <!-- Добавление нового поставщика -->
+        <TextBlock Text="Добавление нового поставщика" FontWeight="Bold" Margin="0,15,0,0" Grid.Row="12"/>
+        <TextBlock Text="Имя поставщика:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="13"/>
+        <TextBox x:Name="TextBoxNewSupplier" Margin="5" Width="200" Grid.Column="1" Grid.Row="13"/>
+        <TextBlock Text="Адрес:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="14"/>
+        <TextBox x:Name="TextBoxSupplierAddress" Margin="5" Width="200" Grid.Column="1" Grid.Row="14"/>
+        <TextBlock Text="Телефон:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="15"/>
+        <TextBox x:Name="TextBoxSupplierPhone" Margin="5" Width="200" Grid.Column="1" Grid.Row="15"/>
+        <Button Content="Добавить поставщика" Click="AddSupplier_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="16"/>
 
-        <!-- Четвёртая строка -->
-        <TextBlock Text="Quantity:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
-        <TextBox x:Name="TextBoxQuantity" Margin="5" Width="200" Grid.Column="1" Grid.Row="3"/>
-
-        <!-- Пятая строка -->
-        <TextBlock Text="Cost:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
-        <TextBox x:Name="TextBoxCost" Margin="5" Width="200" Grid.Column="1" Grid.Row="4"/>
-
-        <!-- Шестая строка -->
-        <TextBlock Text="Supply Date:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
-        <DatePicker x:Name="DatePickerSupplyDate" Margin="5" Width="200" Grid.Column="1" Grid.Row="5"/>
-
-        <!-- Последняя строка -->
-        <Button Content="Добавить продукт" Click="AddProduct_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="9"/>
+        <!-- Добавление нового типа товара -->
+        <TextBlock Text="Добавление нового типа товара" FontWeight="Bold" Margin="0,15,0,0" Grid.Row="17"/>
+        <TextBlock Text="Тип товара:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="18"/>
+        <TextBox x:Name="TextBoxNewProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="18"/>
+        <Button Content="Добавить тип товара" Click="AddProductType_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="19"/>
     </Grid>
 </UserControl>
