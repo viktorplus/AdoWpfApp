@@ -94,3 +94,11 @@ C:\Users\cp24\Мой диск\!SCHAG\ADO.NET--\AdoWpfApp\obj\Debug\net7.0-window
 C:\Users\cp24\Мой диск\!SCHAG\ADO.NET--\AdoWpfApp\obj\Debug\net7.0-windows\AdoWpfApp.pdb
 C:\Users\cp24\Мой диск\!SCHAG\ADO.NET--\AdoWpfApp\obj\Debug\net7.0-windows\AdoWpfApp.genruntimeconfig.cache
 C:\Users\cp24\Мой диск\!SCHAG\ADO.NET--\AdoWpfApp\obj\Debug\net7.0-windows\ref\AdoWpfApp.dll
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Delete.g.cs
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Edit.g.cs
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Create.g.cs
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Create.baml
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Delete.baml
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Edit.baml
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Query.g.cs
+C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\obj\Debug\net7.0-windows\Pages\Query.baml

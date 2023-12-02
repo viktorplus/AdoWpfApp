@@ -7,14 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
-            <ComboBoxItem Content="Відображення всієї інформації про товар" Tag="SELECT * FROM Products"/>
-            <ComboBoxItem Content="Відображення всіх типів товарів" Tag="SELECT * FROM ProductTypes"/>
-            <ComboBoxItem Content="Відображення всіх постачальників" Tag="SELECT * FROM Suppliers"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
 
-        </ComboBox>
+            </Grid.RowDefinitions>
 
-        <DataGrid x:Name="DG_Table" Margin="0,30,0,0" AutoGenerateColumns="True"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button  Grid.Row="0" Grid.Column="0" Content="Query" Click="Query_Click" ToolTip="Query" Background="Green" Margin="10 5 5 5"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Create"  Click="Click_Create" ToolTip="Create" Margin="5"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="Delete"  Click="Click_Delete" ToolTip="Delete" Margin="5"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="Update"  Click="Click_Update" ToolTip="Update" Margin="5"/>
+        </Grid>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5 35 5 5"/>
 
     </Grid>
 </Window>

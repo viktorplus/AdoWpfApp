@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\cp24\Мой диск\!SCHAG\ADO.NET\AdoWpfApp\App.xaml
-11407045341
+5955314199
 
-6-2047148967
+101868057266
 214483509155
-MainWindow.xaml;
+MainWindow.xaml;Pages\Create.xaml;Pages\Delete.xaml;Pages\Edit.xaml;Pages\Query.xaml;
 
-False
+True
 

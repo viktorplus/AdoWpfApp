@@ -1,4 +1,5 @@
-﻿using DBEntity;
+﻿using AdoWpfApp.Pages;
+using DBEntity;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +9,7 @@ namespace AdoWpfApp
     public partial class MainWindow : Window
     {
         private readonly DatabaseManager databaseManager;
-        private const string ConnectionString = @"Data Source=HOMEDE\SQLEXPRESS;Initial Catalog=Warehouse;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        private const string ConnectionString = @"Data Source=HOMEDE\SQLEXPRESS;MultipleActiveResultSets=True;Initial Catalog=Warehouse;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
         public MainWindow()
         {
@@ -18,31 +19,43 @@ namespace AdoWpfApp
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var result = databaseManager.OpenConnection();
+            var result = await databaseManager.OpenConnection();
             try
             {
                 if (result)
                 {
-                    MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                    //MessageBox.Show("Connection opened successfully!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Connection opened failed!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            await LoadData();
+            //await LoadData();
+            MainFrame.Content = new Query(databaseManager);
+
         }
-        private async void ComboBoxQueries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void Click_Create(object sender, RoutedEventArgs e)
         {
-            if (ComboBoxQueries.SelectedItem == null)
-                return;
-            string selectedQuery = (string)((ComboBoxItem)ComboBoxQueries.SelectedItem).Tag;
-            DataTable resultTable = await databaseManager.ExecuteQuery(selectedQuery);
-            DG_Table.ItemsSource = resultTable.DefaultView;
+            MainFrame.Content = new Create(databaseManager);
         }
-        private async Task LoadData()
+
+
+        private void Query_Click(object sender, RoutedEventArgs e)
         {
-            ComboBoxQueries.SelectedIndex = 0;
+
+        }
+
+        private void Click_Delete(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Click_Update(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

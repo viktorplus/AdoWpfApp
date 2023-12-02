@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdoWpfApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+68d7d25d85bd803aae7e1fc0f46d1f32eba4e89a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f9a22b3d68647e0796988b0e1baf5bd16831667")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdoWpfApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdoWpfApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

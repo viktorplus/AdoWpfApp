@@ -12,12 +12,12 @@ namespace DBEntity
             ConnectionString = connectionString;
             sqlConnection = new SqlConnection(ConnectionString);
         }
-   
-        public bool OpenConnection()
+
+        public async Task<bool> OpenConnection()
         {
             try
             {
-                sqlConnection.OpenAsync();
+                await sqlConnection.OpenAsync();
                 return true;
             }
             catch (SqlException sql_ex)
@@ -26,11 +26,11 @@ namespace DBEntity
             }
         }
 
-        public bool CloseConnection()
+        public async Task<bool> CloseConnection()
         {
             try
             {
-                sqlConnection.CloseAsync();
+                await sqlConnection.CloseAsync();
                 return true;
             }
             catch (SqlException sql_ex)
@@ -38,6 +38,7 @@ namespace DBEntity
                 throw new Exception(sql_ex.Message);
             }
         }
+
 
         public async Task<int> ExecuteNonQuery(string query)
         {
@@ -54,26 +55,39 @@ namespace DBEntity
             }
         }
 
-
         public async Task<DataTable> ExecuteQuery(string query)
         {
-            if (sqlConnection.State != System.Data.ConnectionState.Open)
-
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                OpenConnection();
+                await connection.OpenAsync();
 
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable dataTable = new DataTable();
+                        await Task.Run(() => adapter.Fill(dataTable));
+                        return dataTable;
+                    }
+                }
             }
-            DataTable resultTable = new DataTable();
-            using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
-            using (SqlDataReader reader = await sqlCommand.ExecuteReaderAsync())
-            {
-                resultTable.Load(reader);
-
-
-            }
-            CloseConnection();
-            return resultTable;
         }
+
+        public async Task<object> ExecuteScalar(string query)
+        {
+            if (sqlConnection.State != ConnectionState.Open)
+            {
+                await OpenConnection();
+            }
+
+            using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+            {
+                object result = await sqlCommand.ExecuteScalarAsync();
+                await CloseConnection();
+                return result;
+            }
+        }
+
 
         public async Task InsertProduct(string productName, int productTypeId, int supplierId, int quantity, decimal cost, DateTime supplyDate)
         {
@@ -161,3 +175,4 @@ namespace DBEntity
 
     }
 }
+/*MultipleActiveResultSets=True*/

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="AdoWpfApp.Pages.Create"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AdoWpfApp.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Первая строка -->
+        <TextBlock Text="Product Name:" VerticalAlignment="Center" Grid.Column="0"/>
+        <TextBox x:Name="TextBoxProductName" Margin="5" Width="200" Grid.Column="1" Grid.Row="0"/>
+
+        <!-- Вторая строка -->
+        <TextBlock Text="Product Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
+        <ComboBox x:Name="ComboBoxProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="1"/>
+
+        <!-- Третья строка -->
+        <TextBlock Text="Supplier:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+        <ComboBox x:Name="ComboBoxSupplier" Margin="5" Width="200" Grid.Column="1" Grid.Row="2"/>
+
+        <!-- Четвёртая строка -->
+        <TextBlock Text="Quantity:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
+        <TextBox x:Name="TextBoxQuantity" Margin="5" Width="200" Grid.Column="1" Grid.Row="3"/>
+
+        <!-- Пятая строка -->
+        <TextBlock Text="Cost:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
+        <TextBox x:Name="TextBoxCost" Margin="5" Width="200" Grid.Column="1" Grid.Row="4"/>
+
+        <!-- Шестая строка -->
+        <TextBlock Text="Supply Date:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
+        <DatePicker x:Name="DatePickerSupplyDate" Margin="5" Width="200" Grid.Column="1" Grid.Row="5"/>
+
+        <!-- Последняя строка -->
+        <Button Content="Добавить продукт" Click="AddProduct_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="9"/>
+    </Grid>
+</UserControl>
