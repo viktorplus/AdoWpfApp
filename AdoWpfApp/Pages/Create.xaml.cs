@@ -123,20 +123,14 @@ namespace AdoWpfApp.Pages
         {
             try
             {
-                // Получение данных из текстового поля
                 string productTypeName = TextBoxNewProductType.Text;
-
-                // Проверка, что поле не пусто
                 if (!string.IsNullOrEmpty(productTypeName))
                 {
-                    // Формирование и выполнение запроса на добавление типа товара
                     string query = $"INSERT INTO ProductTypes (TypeName) VALUES ('{productTypeName}')";
                     await databaseManager.ExecuteNonQuery(query);
 
-                    // Очистка текстового поля после успешного добавления
                     TextBoxNewProductType.Clear();
 
-                    // Обновление списка типов продуктов
                     await LoadProductTypes();
                     MessageBox.Show($"Тип товара добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -148,7 +142,6 @@ namespace AdoWpfApp.Pages
             }
             catch (Exception ex)
             {
-                // Обработка ошибок
                 MessageBox.Show($"Ошибка при добавлении типа товара: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -157,24 +150,19 @@ namespace AdoWpfApp.Pages
         {
             try
             {
-                // Получение данных из текстовых полей
                 string supplierName = TextBoxNewSupplier.Text;
                 string supplierAddress = TextBoxSupplierAddress.Text;
                 string supplierPhone = TextBoxSupplierPhone.Text;
 
-                // Проверка, что поля не пусты
                 if (!string.IsNullOrEmpty(supplierName) && !string.IsNullOrEmpty(supplierAddress) && !string.IsNullOrEmpty(supplierPhone))
                 {
-                    // Формирование и выполнение запроса на добавление поставщика
                     string query = $"INSERT INTO Suppliers (SupplierName, Address, Phone) VALUES ('{supplierName}', '{supplierAddress}', '{supplierPhone}')";
                     await databaseManager.ExecuteNonQuery(query);
 
-                    // Очистка текстовых полей после успешного добавления
                     TextBoxNewSupplier.Clear();
                     TextBoxSupplierAddress.Clear();
                     TextBoxSupplierPhone.Clear();
 
-                    // Обновление списка поставщиков
                     await LoadSupplierNames();
                     MessageBox.Show($"Поставщик добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -186,7 +174,6 @@ namespace AdoWpfApp.Pages
             }
             catch (Exception ex)
             {
-                // Обработка ошибок
                 MessageBox.Show($"Ошибка при добавлении поставщика: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
