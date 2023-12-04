@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DBEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,8 @@ namespace AdoWpfApp.Pages
     /// </summary>
     public partial class Delete : UserControl
     {
-        public Delete()
+        private readonly DatabaseManager databaseManager;
+        public Delete(DatabaseManager dbManager)
         {
             InitializeComponent();
         }

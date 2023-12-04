@@ -45,17 +45,17 @@ namespace AdoWpfApp
 
         private void Query_Click(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Content = new Query(databaseManager);
         }
 
         private void Click_Delete(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Content = new Delete(databaseManager);
         }
 
         private void Click_Update(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Content = new Edit(databaseManager);
         }
     }
 }

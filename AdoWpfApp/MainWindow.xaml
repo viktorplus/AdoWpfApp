@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdoWpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="MainWindow" Height="600" Width="600" Loaded="Window_Loaded">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -27,7 +27,7 @@
             <Button  Grid.Row="0" Grid.Column="0" Content="Query" Click="Query_Click" ToolTip="Query" Background="Green" Margin="10 5 5 5"/>
             <Button Grid.Row="0" Grid.Column="1" Content="Create"  Click="Click_Create" ToolTip="Create" Margin="5"/>
             <Button Grid.Row="0" Grid.Column="3" Content="Delete"  Click="Click_Delete" ToolTip="Delete" Margin="5"/>
-            <Button Grid.Row="0" Grid.Column="3" Content="Update"  Click="Click_Update" ToolTip="Update" Margin="5"/>
+            <Button Grid.Row="0" Grid.Column="4" Content="Update"  Click="Click_Update" ToolTip="Update" Margin="5"/>
         </Grid>
 
         <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5 35 5 5"/>
