@@ -12,7 +12,81 @@
                 <ComboBoxItem Content="Відображення всієї інформації про товар" Tag="SELECT * FROM Products"/>
                 <ComboBoxItem Content="Відображення всіх типів товарів" Tag="SELECT * FROM ProductTypes"/>
                 <ComboBoxItem Content="Відображення всіх постачальників" Tag="SELECT * FROM Suppliers"/>
-        </ComboBox>
+                <ComboBoxItem Content="Постачальник з найбільшою кількістю товарів на складі" 
+                              Tag="SELECT TOP 1
+                                        s.SupplierName,
+                                        s.Address,
+                                        s.Phone,
+                                        SUM(p.Quantity) AS TotalQuantity
+                                    FROM
+                                        Suppliers s
+                                    JOIN
+                                        Products p ON s.ID = p.SupplierID
+                                    GROUP BY
+                                        s.SupplierName, s.Address, s.Phone
+                                    ORDER BY
+                                        TotalQuantity DESC;
+                                    "/>
+                <ComboBoxItem Content="Показати інформацію про постачальника, в якого кількість товарів на складі найменша." 
+                              Tag="SELECT TOP 1
+                                        s.SupplierName,
+                                        s.Address,
+                                        s.Phone,
+                                        SUM(p.Quantity) AS TotalQuantity
+                                    FROM
+                                        Suppliers s
+                                    JOIN
+                                        Products p ON s.ID = p.SupplierID
+                                    GROUP BY
+                                        s.SupplierName, s.Address, s.Phone
+                                    ORDER BY
+                                        TotalQuantity ASC;
+                                    "/>
+                <ComboBoxItem Content="Показати інформацію про тип товару з найбільшою кількістю одиниць на складі." 
+                              Tag="SELECT TOP 1
+                                        pt.TypeName,
+                                        SUM(p.Quantity) AS TotalQuantity
+                                    FROM
+                                        ProductTypes pt
+                                    JOIN
+                                        Products p ON pt.ID = p.ProductTypeID
+                                    GROUP BY
+                                        pt.TypeName
+                                    ORDER BY
+                                        TotalQuantity DESC;
+                                    "/>
+                <ComboBoxItem Content="Показати інформацію про тип товарів з найменшою кількістю товарів на складі." 
+                              Tag="SELECT TOP 1
+                                        pt.TypeName,
+                                        SUM(p.Quantity) AS TotalQuantity
+                                    FROM
+                                        ProductTypes pt
+                                    JOIN
+                                        Products p ON pt.ID = p.ProductTypeID
+                                    GROUP BY
+                                        pt.TypeName
+                                    ORDER BY
+                                        TotalQuantity ASC;
+                                    "/>
+                <ComboBoxItem Content=" Показати товари, з постачання яких минула задана кількість днів." 
+                              Tag="DECLARE @DaysAgo INT = 30;
+
+                                    SELECT
+                                        p.ProductName,
+                                        p.Quantity,
+                                        p.Cost,
+                                        s.SupplierName,
+                                        s.Address,
+                                        s.Phone,
+                                        p.SupplyDate
+                                    FROM
+                                        Products p
+                                    JOIN
+                                        Suppliers s ON p.SupplierID = s.ID
+                                    WHERE
+                                        DATEADD(DAY, -@DaysAgo, GETDATE())>=p.SupplyDate;
+                                    "/>
+            </ComboBox>
         </WrapPanel>
 
         <DataGrid x:Name="DG_Table" Margin="0,20,0,0" AutoGenerateColumns="True"/>
