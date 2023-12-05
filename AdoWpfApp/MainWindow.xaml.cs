@@ -9,7 +9,7 @@ namespace AdoWpfApp
     public partial class MainWindow : Window
     {
         private readonly DatabaseManager databaseManager;
-        private const string ConnectionString = @"Data Source=HOMEDE\SQLEXPRESS;MultipleActiveResultSets=True;Initial Catalog=Warehouse;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False";
+        private const string ConnectionString = @"Data Source=HomeDE\SQLEXPRESS;Initial Catalog=Kanztovar;Integrated Security=True;Encrypt=False";
 
         public MainWindow()
         {

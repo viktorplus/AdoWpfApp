@@ -9,83 +9,85 @@
     <Grid Margin=" 5">
         <WrapPanel>
             <ComboBox x:Name="ComboBoxQueries" SelectionChanged="ComboBoxQueries_SelectionChanged">
-                <ComboBoxItem Content="Відображення всієї інформації про товар" Tag="SELECT * FROM Products"/>
-                <ComboBoxItem Content="Відображення всіх типів товарів" Tag="SELECT * FROM ProductTypes"/>
-                <ComboBoxItem Content="Відображення всіх постачальників" Tag="SELECT * FROM Suppliers"/>
-                <ComboBoxItem Content="Постачальник з найбільшою кількістю товарів на складі" 
-                              Tag="SELECT TOP 1
-                                        s.SupplierName,
-                                        s.Address,
-                                        s.Phone,
-                                        SUM(p.Quantity) AS TotalQuantity
-                                    FROM
-                                        Suppliers s
-                                    JOIN
-                                        Products p ON s.ID = p.SupplierID
-                                    GROUP BY
-                                        s.SupplierName, s.Address, s.Phone
-                                    ORDER BY
-                                        TotalQuantity DESC;
-                                    "/>
-                <ComboBoxItem Content="Показати інформацію про постачальника, в якого кількість товарів на складі найменша." 
-                              Tag="SELECT TOP 1
-                                        s.SupplierName,
-                                        s.Address,
-                                        s.Phone,
-                                        SUM(p.Quantity) AS TotalQuantity
-                                    FROM
-                                        Suppliers s
-                                    JOIN
-                                        Products p ON s.ID = p.SupplierID
-                                    GROUP BY
-                                        s.SupplierName, s.Address, s.Phone
-                                    ORDER BY
-                                        TotalQuantity ASC;
-                                    "/>
-                <ComboBoxItem Content="Показати інформацію про тип товару з найбільшою кількістю одиниць на складі." 
-                              Tag="SELECT TOP 1
-                                        pt.TypeName,
-                                        SUM(p.Quantity) AS TotalQuantity
-                                    FROM
-                                        ProductTypes pt
-                                    JOIN
-                                        Products p ON pt.ID = p.ProductTypeID
-                                    GROUP BY
-                                        pt.TypeName
-                                    ORDER BY
-                                        TotalQuantity DESC;
-                                    "/>
-                <ComboBoxItem Content="Показати інформацію про тип товарів з найменшою кількістю товарів на складі." 
-                              Tag="SELECT TOP 1
-                                        pt.TypeName,
-                                        SUM(p.Quantity) AS TotalQuantity
-                                    FROM
-                                        ProductTypes pt
-                                    JOIN
-                                        Products p ON pt.ID = p.ProductTypeID
-                                    GROUP BY
-                                        pt.TypeName
-                                    ORDER BY
-                                        TotalQuantity ASC;
-                                    "/>
-                <ComboBoxItem Content=" Показати товари, з постачання яких минула задана кількість днів." 
-                              Tag="DECLARE @DaysAgo INT = 30;
+                <ComboBoxItem Content="Таблиця Канцтовари" 
+                              Tag="
+SELECT * FROM Stationery
+                              "/>
+                <ComboBoxItem Content="Таблиця Тип_канцтовара" 
+                              Tag="
+SELECT * FROM Stationery_Type
+                              "/>
 
-                                    SELECT
-                                        p.ProductName,
-                                        p.Quantity,
-                                        p.Cost,
-                                        s.SupplierName,
-                                        s.Address,
-                                        s.Phone,
-                                        p.SupplyDate
-                                    FROM
-                                        Products p
-                                    JOIN
-                                        Suppliers s ON p.SupplierID = s.ID
-                                    WHERE
-                                        DATEADD(DAY, -@DaysAgo, GETDATE())>=p.SupplyDate;
-                                    "/>
+                <ComboBoxItem Content="Таблиця Менеджер_продажів" 
+                              Tag="
+SELECT * FROM Sales_Manager
+                              "/>
+                <ComboBoxItem Content="Таблиця Фірма_покупатель" 
+                              Tag="
+SELECT * FROM Buyer_Company
+                              "/>
+                <ComboBoxItem Content="Таблиця Продажі" 
+                              Tag="
+SELECT * FROM Sales
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари з максимальною кількістю одиниць. " 
+                              Tag="
+SELECT * FROM Stationery WHERE Quantity = (SELECT MAX(Quantity) FROM Stationery);
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари з мінімальною кількістю одиниць. " 
+                              Tag="
+SELECT * FROM Stationery WHERE Quantity = (SELECT MIN(Quantity) FROM Stationery);
+
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари з мінімальною собівартістю одиниці. " 
+                              Tag="
+SELECT * FROM Stationery WHERE Cost = (SELECT MIN(Cost) FROM Stationery);
+
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари з максимальною собівартістю одиниці. " 
+                              Tag="
+SELECT * FROM Stationery WHERE Cost = (SELECT MAX(Cost) FROM Stationery);
+
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари заданого типу. ID=1 " 
+                              Tag="
+SELECT * FROM Stationery WHERE Type_ID = 1;
+
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари, які продав ID=1 менеджер з продажу. " 
+                              Tag="
+SELECT * FROM Sales WHERE Sales_Manager_ID = 1;
+
+                              "/>
+                <ComboBoxItem Content=" Показати канцтовари, які закупила ID=1 фірма-покупець. " 
+                              Tag="
+SELECT 
+    s.ID AS Sale_ID,
+    s.Sale_Date,
+    st.Name AS Stationery_Type,
+    sta.Name AS Stationery_Name,
+    s.Quantity AS Sale_Quantity,
+    s.Sale_Price,
+    b.Company_Name AS Buyer_Company
+FROM Sales s
+JOIN Stationery sta ON s.Stationery_ID = sta.ID
+JOIN Stationery_Type st ON s.Stationery_Type_ID = st.ID
+JOIN Buyer_Company b ON s.Buyer_Company_ID = b.ID
+ WHERE b.ID = 1;
+
+
+                              "/>
+                <ComboBoxItem Content=" Показати інформацію про нещодавній продаж. " 
+                              Tag="
+SELECT top 1 * FROM Sales ORDER BY Sale_Date DESC;
+                              "/>
+                <ComboBoxItem Content=" Показати середню кількість товарів по кожному типу канцтоварів. " 
+                              Tag="
+SELECT t.ID AS Type_ID, t.Name AS Type_Name, AVG(s.Quantity) AS Avg_Quantity
+FROM Stationery s
+JOIN Stationery_Type t ON s.Type_ID = t.ID
+GROUP BY t.ID, t.Name;
+                              "/>
             </ComboBox>
         </WrapPanel>
 
