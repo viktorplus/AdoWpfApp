@@ -34,23 +34,14 @@ namespace AdoWpfApp.Pages
             try
             {
                 // Загрузка данных о типах продуктов
-                string productTypeQuery = "SELECT ID, TypeName FROM ProductTypes";
+                string productTypeQuery = "SELECT ID, Name FROM Stationery_Type";
                 DataTable productTypesTable = await databaseManager.ExecuteQuery(productTypeQuery);
                 List<string> productTypeNames = productTypesTable.AsEnumerable()
-                    .Select(typeRow => typeRow.Field<string>("TypeName"))
+                    .Select(typeRow => typeRow.Field<string>("Name"))
                     .ToList();
 
                 ComboBoxProductType.ItemsSource = productTypeNames;
                 ComboBoxCurrentProductType.ItemsSource = productTypeNames;
-
-                // Загрузка данных о поставщиках
-                string supplierQuery = "SELECT ID, SupplierName FROM Suppliers";
-                DataTable suppliersTable = await databaseManager.ExecuteQuery(supplierQuery);
-                List<string> supplierNames = suppliersTable.AsEnumerable()
-                    .Select(supplierRow => supplierRow.Field<string>("SupplierName"))
-                    .ToList();
-
-                ComboBoxSupplier.ItemsSource = supplierNames;
             }
             catch (Exception ex)
             {
@@ -67,16 +58,13 @@ namespace AdoWpfApp.Pages
                     string productQuery = @"
                     SELECT 
                         P.ID, 
-                        P.ProductName, 
+                        P.Name, 
                         P.Quantity, 
                         P.Cost, 
-                        P.SupplyDate, 
-                        PT.TypeName AS ProductTypeName, 
-                        S.SupplierName
+                        PT.Name AS ProductTypeName, 
                     FROM 
-                        Products P
-                        INNER JOIN ProductTypes PT ON P.ProductTypeID = PT.ID
-                        LEFT JOIN Suppliers S ON P.SupplierID = S.ID
+                        Stationery P
+                        INNER JOIN Stationery_Type PT ON P.Type_ID = PT.ID
                     WHERE 
                         P.ID = " + productId;
 
@@ -87,18 +75,13 @@ namespace AdoWpfApp.Pages
                     {
                         DataRow row = productData.Rows[0];
 
-                        TextBoxProductName.Text = row.Field<string>("ProductName");
+                        TextBoxProductName.Text = row.Field<string>("ProductTypeName");
                         TextBoxQuantity.Text = row.Field<int>("Quantity").ToString();
                         TextBoxCost.Text = row.Field<decimal>("Cost").ToString();
-                        DatePickerSupplyDate.SelectedDate = row.Field<DateTime>("SupplyDate");
 
                         // Установим выбранное значение вручную
                         string selectedProductTypeName = row.Field<string>("ProductTypeName");
                         ComboBoxProductType.SelectedItem = selectedProductTypeName;
-
-                        // Установим выбранное значение вручную
-                        string selectedSupplierName = row.Field<string>("SupplierName");
-                        ComboBoxSupplier.SelectedItem = selectedSupplierName;
                     }
                     else
                     {
@@ -116,59 +99,13 @@ namespace AdoWpfApp.Pages
             }
         }
 
-
-
-        private async void LoadSupplierData_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (int.TryParse(TextBoxSupplierId.Text, out int supplierId))
-                {
-                    // Запрос для получения данных о поставщике
-                    string supplierQuery = $@"
-                SELECT 
-                    S.ID, 
-                    S.SupplierName, 
-                    S.Address, 
-                    S.Phone
-                FROM 
-                    Suppliers S
-                WHERE 
-                    S.ID = {supplierId}";
-
-                    DataTable supplierData = await databaseManager.ExecuteQuery(supplierQuery);
-
-                    if (supplierData.Rows.Count > 0)
-                    {
-                        DataRow row = supplierData.Rows[0];
-
-                        TextBoxSupplierName.Text = row.Field<string>("SupplierName");
-                        TextBoxSupplierAddress.Text = row.Field<string>("Address");
-                        TextBoxSupplierPhone.Text = row.Field<string>("Phone");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Поставщик с указанным ID не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Введите корректный ID поставщика.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке данных поставщика: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
         private async void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (int.TryParse(TextBoxProductId.Text, out int productId))
                 {
-                    // Запрос для удаления продукта
-                    string deleteProductQuery = $"DELETE FROM Products WHERE ID = {productId}";
+                    string deleteProductQuery = $"DELETE FROM Stationery WHERE ID = {productId}";
 
                     await databaseManager.ExecuteNonQuery(deleteProductQuery);
 
@@ -195,7 +132,7 @@ namespace AdoWpfApp.Pages
                 if (!string.IsNullOrEmpty(selectedProductType))
                 {
                     // Запрос для удаления типа продукта
-                    string deleteProductTypeQuery = $"DELETE FROM ProductTypes WHERE TypeName = '{selectedProductType}'";
+                    string deleteProductTypeQuery = $"DELETE FROM Stationery_Type WHERE Name = '{selectedProductType}'";
 
                     await databaseManager.ExecuteNonQuery(deleteProductTypeQuery);
 
@@ -212,30 +149,24 @@ namespace AdoWpfApp.Pages
             }
         }
 
-        private async void DeleteSupplier_Click(object sender, RoutedEventArgs e)
+        private void DeleteCompany_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (int.TryParse(TextBoxSupplierId.Text, out int supplierId))
-                {
-                    // Запрос для удаления поставщика
-                    string deleteSupplierQuery = $"DELETE FROM Suppliers WHERE ID = {supplierId}";
 
-                    await databaseManager.ExecuteNonQuery(deleteSupplierQuery);
-
-                    MessageBox.Show("Поставщик успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Введите корректный ID поставщика.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при удалении поставщика: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
+        private void DeleteManager_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
+
+        private void LoadCompanyData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadManagerData_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

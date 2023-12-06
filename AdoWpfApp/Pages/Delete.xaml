@@ -42,77 +42,69 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Первая строка -->
-        <TextBlock Text="Редактирование продукта" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="0"/>
 
-        <!-- Вторая строка -->
+        <TextBlock Text="Удаление продукта" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="0"/>
+
         <TextBlock Text="ID продукта:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1"/>
         <TextBox x:Name="TextBoxProductId" Margin="5" Width="200" Grid.Column="1" Grid.Row="1"/>
 
-        <!-- Третья строка -->
         <TextBlock Text="Product Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
         <TextBox x:Name="TextBoxProductName" Margin="5" Width="200" Grid.Column="1" Grid.Row="2"/>
-
-        <!-- Четвёртая строка -->
+        
         <TextBlock Text="Product Type:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="3"/>
         <ComboBox x:Name="ComboBoxProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="3"/>
 
-        <!-- Пятая строка -->
-        <TextBlock Text="Supplier:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
-        <ComboBox x:Name="ComboBoxSupplier" Margin="5" Width="200" Grid.Column="1" Grid.Row="4"/>
-
-        <!-- Шестая строка -->
         <TextBlock Text="Quantity:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="5"/>
         <TextBox x:Name="TextBoxQuantity" Margin="5" Width="200" Grid.Column="1" Grid.Row="5"/>
 
-        <!-- Седьмая строка -->
         <TextBlock Text="Cost:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
         <TextBox x:Name="TextBoxCost" Margin="5" Width="200" Grid.Column="1" Grid.Row="6"/>
 
-        <!-- Восьмая строка -->
-        <TextBlock Text="Supply Date:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="7"/>
-        <DatePicker x:Name="DatePickerSupplyDate" Margin="5" Width="200" Grid.Column="1" Grid.Row="7"/>
+        <Button Content="Загрузить данные по ID" Click="LoadProductData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="7"/>
+        <Button Content="Удалить продукт" Click="DeleteProduct_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="8"/>
 
-        <!-- Девятая строка -->
-        <Button Content="Загрузить данные по ID" Click="LoadProductData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="8"/>
+        
+        
+        <TextBlock Text="Удаление типа продукта" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="9"/>
 
-        <!-- Десятая строка -->
-        <Button Content="Удалить продукт" Click="DeleteProduct_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="9"/>
+        <TextBlock Text="Текущий тип продукта:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="10"/>
+        <ComboBox x:Name="ComboBoxCurrentProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="10" SelectedIndex="0"/>
 
-        <TextBlock Text="Удаление типа продукта" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="11"/>
+        <Button Content="Удалить тип продукта" Click="DeleteProductType_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="11"/>
 
-        <!-- Выбор текущего типа продукта -->
-        <TextBlock Text="Текущий тип продукта:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="12"/>
-        <ComboBox x:Name="ComboBoxCurrentProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="12" SelectedIndex="0"/>
+        
+        
+        <TextBlock Text="Удаление Менеджера" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="12"/>
+        
+        <TextBlock Text="Менеджер ID:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="13"/>
+        <TextBox x:Name="TextBoxManagerId" Margin="5" Width="200" Grid.Column="1" Grid.Row="13"/>
 
-        <!-- Текстовое поле для нового значения типа продукта -->
-        <!--<TextBlock Text="Новое значение:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="13"/>
-        <TextBox x:Name="TextBoxNewProductTypeValue" Margin="5" Width="200" Grid.Column="1" Grid.Row="13"/>-->
+        <TextBlock Text="Manager Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="14"/>
+        <TextBox x:Name="TextBoxManagerName" Margin="5" Width="200" Grid.Column="1" Grid.Row="14"/>
 
-        <!-- Кнопка сохранения изменений типа продукта -->
-        <Button Content="Удалить тип продукта" Click="DeleteProductType_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="14"/>
+        <TextBlock Text="Manager SurName:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="15"/>
+        <TextBox x:Name="TextBoxManagerSurName" Margin="5" Width="200" Grid.Column="1" Grid.Row="15"/>
+
+        <TextBlock Text="Manager Phone:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="16"/>
+        <TextBox x:Name="TextBoxManagerPhone" Margin="5" Width="200" Grid.Column="1" Grid.Row="16"/>
 
 
-        <!-- Четырнадцатая строка -->
-        <TextBlock Text="Supplier ID:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="15"/>
-        <TextBox x:Name="TextBoxSupplierId" Margin="5" Width="200" Grid.Column="1" Grid.Row="15"/>
+        <Button Content="Загрузить данные менеджера по его ID" Click="LoadManagerData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="17"/>
+        <Button Content="Удалить Менеджера" Click="DeleteManager_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="18"/>
 
-        <!-- Двенадцатая строка -->
-        <TextBlock Text="Supplier Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="16"/>
-        <TextBox x:Name="TextBoxSupplierName" Margin="5" Width="200" Grid.Column="1" Grid.Row="16"/>
+        <TextBlock Text="Удаление фирмы покупателя" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="12"/>
 
-        <!-- Тринадцатая строка -->
-        <TextBlock Text="Supplier Address:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="17"/>
-        <TextBox x:Name="TextBoxSupplierAddress" Margin="5" Width="200" Grid.Column="1" Grid.Row="17"/>
+        <TextBlock Text="Фирма ID:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="13"/>
+        <TextBox x:Name="TextBoxCompanyId" Margin="5" Width="200" Grid.Column="1" Grid.Row="13"/>
 
-        <!-- Четырнадцатая строка -->
-        <TextBlock Text="Supplier Phone:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="18"/>
-        <TextBox x:Name="TextBoxSupplierPhone" Margin="5" Width="200" Grid.Column="1" Grid.Row="18"/>
+        <TextBlock Text="Company Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="14"/>
+        <TextBox x:Name="TextBoxCompanyName" Margin="5" Width="200" Grid.Column="1" Grid.Row="14"/>
 
-        <!-- Пятнадцатая строка -->
-        <Button Content="Загрузить данные поставщика по его ID" Click="LoadSupplierData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="19"/>
+        <TextBlock Text="Company Phone:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="16"/>
+        <TextBox x:Name="TextBoxCompanyPhone" Margin="5" Width="200" Grid.Column="1" Grid.Row="16"/>
 
-        <!-- Шестнадцатая строка -->
-        <Button Content="Удалить поставщика" Click="DeleteSupplier_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="20"/>
+
+        <Button Content="Загрузить данные компании по его ID" Click="LoadCompanyData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="17"/>
+        <Button Content="Удалить компанию" Click="DeleteCompany_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="18"/>
     </Grid>
 </UserControl>
