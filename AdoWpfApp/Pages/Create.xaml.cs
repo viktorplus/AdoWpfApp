@@ -15,65 +15,30 @@ namespace AdoWpfApp.Pages
             InitializeComponent();
             databaseManager = dbManager;
             LoadProductTypes();
-            LoadSupplierNames();
 
         }
         private async Task LoadProductTypes()
         {
             try
             {
-                string query = "SELECT ID, TypeName FROM ProductTypes";
+                string query = "SELECT ID, Name FROM Stationery_Type";
                 DataTable productTypesTable = await databaseManager.ExecuteQuery(query);
 
                 List<string> productTypeNames = productTypesTable.AsEnumerable()
-                    .Select(row => row.Field<string>("TypeName"))
+                    .Select(row => row.Field<string>("Name"))
                     .ToList();
 
                 ComboBoxProductType.ItemsSource = productTypeNames;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке типов продуктов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при загрузке типов: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private async Task LoadSupplierNames()
-        {
-            try
-            {
-                string query = "SELECT SupplierName FROM Suppliers";
-                DataTable suppliersTable = await databaseManager.ExecuteQuery(query);
-
-                List<string> supplierNames = suppliersTable.AsEnumerable()
-                    .Select(row => row.Field<string>("SupplierName"))
-                    .ToList();
-
-                ComboBoxSupplier.ItemsSource = supplierNames;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при загрузке поставщиков: {ex.Message}\nStackTrace: {ex.StackTrace}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-
-
-        private async Task<int> GetSupplierIdByName(string supplierName)
-        {
-            string query = $"SELECT Top 1 ID FROM Suppliers WHERE SupplierName = '{supplierName}'";
-            DataTable resultTable = await databaseManager.ExecuteQuery(query);
-
-            if (resultTable.Rows.Count > 0)
-            {
-                int supplierId = resultTable.Rows[0].Field<int>("ID");
-                return supplierId;
-            }
-            return -1;
         }
 
         private async Task<int> GetProductTypeIdByName(string productTypeName)
         {
-            string query = $"SELECT Top 1 ID FROM ProductTypes WHERE TypeName = '{productTypeName}'";
+            string query = $"SELECT Top 1 ID FROM Stationery_Type WHERE Name = '{productTypeName}'";
             DataTable resultTable = await databaseManager.ExecuteQuery(query);
 
             if (resultTable.Rows.Count > 0)
@@ -95,21 +60,18 @@ namespace AdoWpfApp.Pages
                 {
                     string selectedProductTypeName = ComboBoxProductType.SelectedItem.ToString();
                     int productTypeId = await GetProductTypeIdByName(selectedProductTypeName);
-
-                    if (ComboBoxSupplier.SelectedItem != null)
-                    {
-                        string selectedSupplierName = ComboBoxSupplier.SelectedItem.ToString();
-                        int supplierId = await GetSupplierIdByName(selectedSupplierName);
                         int quantity = Convert.ToInt32(TextBoxQuantity.Text);
                         decimal cost = Convert.ToDecimal(TextBoxCost.Text);
-                        DateTime supplyDate = DatePickerSupplyDate.SelectedDate ?? DateTime.Now;
 
-                        string query = $"INSERT INTO Products (ProductName, ProductTypeID, SupplierID, Quantity, Cost, SupplyDate) VALUES " +
-                            $"('{productName}', {productTypeId}, {supplierId}, {quantity}, {cost}, '{supplyDate.ToString("yyyy-MM-dd")}')";
-                        // Используем ExecuteNonQuery синхронно
-                       databaseManager.ExecuteNonQuery(query);
+                        string query = $"INSERT INTO Stationery (Name, Type_ID, Cost, Quantity) VALUES " +
+                            $"('{productName}', {productTypeId}, {quantity}, {cost})";
+
+                    TextBoxProductName.Clear();
+                    TextBoxQuantity.Clear();
+                    TextBoxCost.Clear();
+
+                    await databaseManager.ExecuteNonQuery(query);
                         MessageBox.Show($"Продукт добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                    }
                 }
             }
             catch (Exception ex)
@@ -124,16 +86,16 @@ namespace AdoWpfApp.Pages
             try
             {
                 string productTypeName = TextBoxNewProductType.Text;
+                int typeQuantity = Convert.ToInt32(TextBoxTypeQuantity.Text);
                 if (!string.IsNullOrEmpty(productTypeName))
                 {
-                    string query = $"INSERT INTO ProductTypes (TypeName) VALUES ('{productTypeName}')";
+                    string query = $"INSERT INTO Stationery_Type (Name, Quantity) VALUES ('{productTypeName}', {typeQuantity})";
                     await databaseManager.ExecuteNonQuery(query);
 
                     TextBoxNewProductType.Clear();
 
                     await LoadProductTypes();
                     MessageBox.Show($"Тип товара добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
                 }
                 else
                 {
@@ -146,41 +108,46 @@ namespace AdoWpfApp.Pages
             }
         }
 
-        private async void AddSupplier_Click(object sender, RoutedEventArgs e)
+        private async void AddManager_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string supplierName = TextBoxNewSupplier.Text;
-                string supplierAddress = TextBoxSupplierAddress.Text;
-                string supplierPhone = TextBoxSupplierPhone.Text;
+                string ManagerName = TextBoxName.Text;
+                string ManagerLastName = TextBoxLastName.Text;
+                string ManagerPhone = TextBoxManagerPhone.Text;
+                string query = $"INSERT INTO Sales_Manager (First_Name, Last_Name, Phone) VALUES ('{ManagerName}', '{ManagerLastName}', {ManagerPhone})";
+                await databaseManager.ExecuteNonQuery(query);
 
-                if (!string.IsNullOrEmpty(supplierName) && !string.IsNullOrEmpty(supplierAddress) && !string.IsNullOrEmpty(supplierPhone))
-                {
-                    string query = $"INSERT INTO Suppliers (SupplierName, Address, Phone) VALUES ('{supplierName}', '{supplierAddress}', '{supplierPhone}')";
-                    await databaseManager.ExecuteNonQuery(query);
-
-                    TextBoxNewSupplier.Clear();
-                    TextBoxSupplierAddress.Clear();
-                    TextBoxSupplierPhone.Clear();
-
-                    await LoadSupplierNames();
-                    MessageBox.Show($"Поставщик добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                }
-                else
-                {
-                    MessageBox.Show("Введите все данные поставщика", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                TextBoxName.Clear();
+                TextBoxLastName.Clear();
+                TextBoxManagerPhone.Clear();
+                MessageBox.Show($"Тип товара добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при добавлении поставщика: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при добавлении типа товара: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        private async void AddCompany_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string Company_Name = TextBoxCompanyName.Text;
+                string Phone = TextBoxCompanyPhone.Text;
+                string query = $"INSERT INTO Buyer_Company (Company_Name, Phone) VALUES ('{Company_Name}', {Phone})";
+                await databaseManager.ExecuteNonQuery(query);
 
+                TextBoxCompanyName.Clear();
+                TextBoxCompanyPhone.Clear();
+                MessageBox.Show($"Тип товара добавлен успешно: {query}", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении типа товара: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-
+        }
     }
 }
 
