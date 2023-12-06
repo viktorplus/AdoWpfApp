@@ -80,6 +80,7 @@ namespace DBEntity
         }
 
 
+
         public async Task<DataTable> ExecuteQuery(string query)
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))

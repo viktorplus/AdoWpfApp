@@ -113,6 +113,7 @@ namespace AdoWpfApp.Pages
                 }
                 else
                 {
+
                     MessageBox.Show("Введите корректный ID продукта.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
