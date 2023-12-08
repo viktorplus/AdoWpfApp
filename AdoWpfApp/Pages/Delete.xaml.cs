@@ -1,19 +1,7 @@
 ﻿using DBEntity;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AdoWpfApp.Pages
 {
@@ -41,7 +29,7 @@ namespace AdoWpfApp.Pages
                     .ToList();
 
                 ComboBoxProductType.ItemsSource = productTypeNames;
-                //ComboBoxCurrentProductType.ItemsSource = productTypeNames;
+                ComboBoxCurrentProductType.ItemsSource = productTypeNames;
             }
             catch (Exception ex)
             {
@@ -137,6 +125,7 @@ namespace AdoWpfApp.Pages
 
                     await databaseManager.ExecuteNonQuery(deleteProductTypeQuery);
 
+
                     MessageBox.Show("Тип продукта успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
@@ -150,22 +139,141 @@ namespace AdoWpfApp.Pages
             }
         }
 
-        private void DeleteCompany_Click(object sender, RoutedEventArgs e)
+        private async void DeleteCompany_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (int.TryParse(TextBoxCompanyId.Text, out int companyId))
+                {
+                    string deleteCompanyQuery = $"DELETE FROM Buyer_Company WHERE ID = {companyId}";
 
+                    await databaseManager.ExecuteNonQuery(deleteCompanyQuery);
+
+                    MessageBox.Show("Компания успешно удалена.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректный ID компании.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении компании: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void DeleteManager_Click(object sender, RoutedEventArgs e)
+        private async void DeleteManager_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (int.TryParse(TextBoxManagerId.Text, out int managerId))
+                {
+                    string deleteManagerQuery = $"DELETE FROM Sales_Manager WHERE ID = {managerId}";
 
+                    await databaseManager.ExecuteNonQuery(deleteManagerQuery);
+
+                    MessageBox.Show("Менеджер успешно удален.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректный ID менеджера.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при удалении менеджера: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void LoadCompanyData_Click(object sender, RoutedEventArgs e)
-        {
 
+        private async void LoadCompanyData_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (int.TryParse(TextBoxCompanyId.Text, out int companyId))
+                {
+                    // Запрос для получения данных о компании
+                    string companyQuery = $@"
+                SELECT 
+                    BC.ID, 
+                    BC.Company_Name, 
+                    BC.Phone
+                FROM 
+                    Buyer_Company BC
+                WHERE 
+                    BC.ID = {companyId}";
+
+                    DataTable companyData = await databaseManager.ExecuteQuery(companyQuery);
+
+                    if (companyData.Rows.Count > 0)
+                    {
+                        DataRow row = companyData.Rows[0];
+
+                        TextBoxCompanyName.Text = row.Field<string>("Company_Name");
+                        TextBoxCompanyPhone.Text = row.Field<string>("Phone");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Компания с указанным ID не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректный ID компании.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке данных компании: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void LoadManagerData_Click(object sender, RoutedEventArgs e)
+        private async void LoadManagerData_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (int.TryParse(TextBoxManagerId.Text, out int managerId))
+                {
+                    // Запрос для получения данных о менеджере
+                    string managerQuery = $@"
+                    SELECT 
+                        S.ID, 
+                        S.First_Name AS FirstName, 
+                        S.Last_Name AS LastName, 
+                        S.Phone
+                    FROM 
+                        Sales_Manager S
+                    WHERE 
+                        S.ID = {managerId}";
+
+
+                    DataTable managerData = await databaseManager.ExecuteQuery(managerQuery);
+
+                    if (managerData.Rows.Count > 0)
+                    {
+                        DataRow row = managerData.Rows[0];
+
+                        TextBoxManagerName.Text = row.Field<string>("FirstName");
+                        TextBoxManagerSurName.Text = row.Field<string>("LastName");
+                        TextBoxManagerPhone.Text = row.Field<string>("Phone");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Менеджер с указанным ID не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректный ID менеджера.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке данных менеджера: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ComboBoxCurrentProductType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

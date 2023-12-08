@@ -287,15 +287,81 @@ namespace AdoWpfApp.Pages
             }
         }
 
-        private void LoadCompanyData_Click(object sender, RoutedEventArgs e)
+        private async void LoadCompanyData_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (int.TryParse(TextBoxCompanyId.Text, out int companyId))
+                {
+                    // Запрос для получения данных о компании
+                    string companyQuery = $@"
+                SELECT 
+                    BC.ID, 
+                    BC.Company_Name, 
+                    BC.Phone
+                FROM 
+                    Buyer_Company BC
+                WHERE 
+                    BC.ID = {companyId}";
 
+                    DataTable companyData = await databaseManager.ExecuteQuery(companyQuery);
+
+                    if (companyData.Rows.Count > 0)
+                    {
+                        DataRow row = companyData.Rows[0];
+
+                        TextBoxCompanyName.Text = row.Field<string>("Company_Name");
+                        TextBoxCompanyPhone.Text = row.Field<string>("Phone");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Компания с указанным ID не найдена.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректный ID компании.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке данных компании: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void UpdateCompany_Click(object sender, RoutedEventArgs e)
+        private async void UpdateCompany_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (int.TryParse(TextBoxCompanyId.Text, out int companyId))
+                {
+                    // Получение данных из UI элементов
+                    string companyName = TextBoxCompanyName.Text;
+                    string companyPhone = TextBoxCompanyPhone.Text;
 
+                    // Ваш запрос на обновление данных компании
+                    string updateCompanyQuery = $@"
+                UPDATE Buyer_Company 
+                SET Company_Name = '{companyName}', 
+                    Phone = '{companyPhone}' 
+                WHERE ID = {companyId}";
+
+                    // Выполнение запроса на обновление данных
+                    await databaseManager.ExecuteNonQuery(updateCompanyQuery);
+
+                    MessageBox.Show("Данные компании успешно обновлены.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректный ID компании.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при сохранении данных компании: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
     }
 }
