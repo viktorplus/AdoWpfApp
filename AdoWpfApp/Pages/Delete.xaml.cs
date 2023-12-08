@@ -41,7 +41,7 @@ namespace AdoWpfApp.Pages
                     .ToList();
 
                 ComboBoxProductType.ItemsSource = productTypeNames;
-                ComboBoxCurrentProductType.ItemsSource = productTypeNames;
+                //ComboBoxCurrentProductType.ItemsSource = productTypeNames;
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace AdoWpfApp.Pages
                         P.Name, 
                         P.Quantity, 
                         P.Cost, 
-                        PT.Name AS ProductTypeName, 
+                        PT.Name AS ProductTypeName
                     FROM 
                         Stationery P
                         INNER JOIN Stationery_Type PT ON P.Type_ID = PT.ID
