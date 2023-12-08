@@ -40,6 +40,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
 
@@ -68,7 +82,7 @@
         <TextBlock Text="Обновление типа продукта" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="9"/>
 
         <TextBlock Text="Текущий тип продукта:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="10"/>
-        <ComboBox x:Name="ComboBoxCurrentProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="10" SelectedIndex="0"/>
+        <ComboBox x:Name="ComboBoxCurrentProductType" Margin="5" Width="200" Grid.Column="1" Grid.Row="10" SelectedIndex="0" SelectionChanged="ComboBoxCurrentProductType_SelectionChanged"/>
 
         <TextBlock Text="Новый тип продукта:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="11"/>
         <TextBox x:Name="TextBoxNewProductTypeValue" Margin="5" Width="200" Grid.Column="1" Grid.Row="11"/>
@@ -96,21 +110,21 @@
 
 
         <Button Content="Загрузить данные менеджера по его ID" Click="LoadManagerData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="19"/>
-        <Button Content="Обновить Менеджера" Click="UpdateManager_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="19"/>
+        <Button Content="Обновить Менеджера" Click="UpdateManager_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="20"/>
 
-        <TextBlock Text="Обновить фирму покупателя" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="20"/>
+        <TextBlock Text="Обновить фирму покупателя" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" Grid.Row="21"/>
 
-        <TextBlock Text="Фирма ID:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="21"/>
-        <TextBox x:Name="TextBoxCompanyId" Margin="5" Width="200" Grid.Column="1" Grid.Row="21"/>
+        <TextBlock Text="Фирма ID:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="22"/>
+        <TextBox x:Name="TextBoxCompanyId" Margin="5" Width="200" Grid.Column="1" Grid.Row="22"/>
 
-        <TextBlock Text="Company Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="22"/>
-        <TextBox x:Name="TextBoxCompanyName" Margin="5" Width="200" Grid.Column="1" Grid.Row="22"/>
+        <TextBlock Text="Company Name:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="23"/>
+        <TextBox x:Name="TextBoxCompanyName" Margin="5" Width="200" Grid.Column="1" Grid.Row="23"/>
 
-        <TextBlock Text="Company Phone:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="23"/>
-        <TextBox x:Name="TextBoxCompanyPhone" Margin="5" Width="200" Grid.Column="1" Grid.Row="23"/>
+        <TextBlock Text="Company Phone:" VerticalAlignment="Center" Grid.Column="0" Grid.Row="24"/>
+        <TextBox x:Name="TextBoxCompanyPhone" Margin="5" Width="200" Grid.Column="1" Grid.Row="24"/>
 
 
-        <Button Content="Загрузить данные компании по его ID" Click="LoadCompanyData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="24"/>
-        <Button Content="Обновить компанию" Click="UpdateCompany_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="25"/>
+        <Button Content="Загрузить данные компании по его ID" Click="LoadCompanyData_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="25"/>
+        <Button Content="Обновить компанию" Click="UpdateCompany_Click" Margin="5" Grid.ColumnSpan="2" Height="30" Width="200" Grid.Row="26"/>
     </Grid>
 </UserControl>

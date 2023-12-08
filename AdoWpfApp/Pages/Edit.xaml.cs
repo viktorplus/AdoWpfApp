@@ -36,7 +36,7 @@ namespace AdoWpfApp.Pages
                     .ToList();
 
                 ComboBoxProductType.ItemsSource = productTypeNames;
-                //ComboBoxCurrentProductType.ItemsSource = productTypeNames;
+                ComboBoxCurrentProductType.ItemsSource = productTypeNames;
             }
             catch (Exception ex)
             {
@@ -181,30 +181,59 @@ namespace AdoWpfApp.Pages
                 MessageBox.Show($"Ошибка при сохранении изменений типа продукта: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private async void ComboBoxCurrentProductType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (ComboBoxCurrentProductType.SelectedItem != null)
+                {
+                    string selectedProductType = ComboBoxCurrentProductType.SelectedItem as string;
+
+                    string productTypeQuery = $"SELECT Quantity FROM Stationery_Type WHERE Name = '{selectedProductType}'";
+                    DataTable productTypeData = await databaseManager.ExecuteQuery(productTypeQuery);
+
+                    if (productTypeData.Rows.Count > 0)
+                    {
+                        int typeQuantity = productTypeData.Rows[0].Field<int>("Quantity");
+                        TextBoxTypeQuantity.Text = typeQuantity.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данные о типе продукта не найдены.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке данных о типе продукта: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
         private async void LoadManagerData_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (int.TryParse(TextBoxManagerId.Text, out int supplierId))
+                if (int.TryParse(TextBoxManagerId.Text, out int managerId))
                 {
-                    // Запрос для получения данных о поставщике
-                    string supplierQuery = $@"
-                SELECT 
-                    S.ID, 
-                    S.FirstName, 
-                    S.LastName, 
-                    S.Phone
-                FROM 
-                    Sales_Manager S
-                WHERE 
-                    S.ID = {supplierId}";
+                    // Запрос для получения данных о менеджере
+                    string managerQuery = $@"
+                    SELECT 
+                        S.ID, 
+                        S.First_Name AS FirstName, 
+                        S.Last_Name AS LastName, 
+                        S.Phone
+                    FROM 
+                        Sales_Manager S
+                    WHERE 
+                        S.ID = {managerId}";
 
-                    DataTable supplierData = await databaseManager.ExecuteQuery(supplierQuery);
 
-                    if (supplierData.Rows.Count > 0)
+                    DataTable managerData = await databaseManager.ExecuteQuery(managerQuery);
+
+                    if (managerData.Rows.Count > 0)
                     {
-                        DataRow row = supplierData.Rows[0];
+                        DataRow row = managerData.Rows[0];
 
                         TextBoxManagerName.Text = row.Field<string>("FirstName");
                         TextBoxManagerSurName.Text = row.Field<string>("LastName");
@@ -212,19 +241,20 @@ namespace AdoWpfApp.Pages
                     }
                     else
                     {
-                        MessageBox.Show("Поставщик с указанным ID не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Менеджер с указанным ID не найден.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Введите корректный ID поставщика.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Введите корректный ID менеджера.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при загрузке данных поставщика: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при загрузке данных менеджера: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
         private async void UpdateManager_Click(object sender, RoutedEventArgs e)
@@ -239,7 +269,7 @@ namespace AdoWpfApp.Pages
                     string supplierPhone = TextBoxManagerPhone.Text;
 
                     // Ваш запрос на обновление данных поставщика
-                    string updateSupplierQuery = $"UPDATE Sales_Manager SET FirstName = '{supplierName}', LastName = '{LastName}', Phone = '{supplierPhone}' WHERE ID = {supplierId}";
+                    string updateSupplierQuery = $"UPDATE Sales_Manager SET First_Name = '{supplierName}', Last_Name = '{LastName}', Phone = '{supplierPhone}' WHERE ID = {supplierId}";
 
                     // Выполнение запроса на обновление данных
                     await databaseManager.ExecuteNonQuery(updateSupplierQuery);

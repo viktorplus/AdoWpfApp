@@ -88,7 +88,131 @@ FROM Stationery s
 JOIN Stationery_Type t ON s.Type_ID = t.ID
 GROUP BY t.ID, t.Name;
                               "/>
+                <ComboBoxItem Content=" Запит для отримання інформації про менеджерів з найбільшою кількістю продажів за кількістю одиниць: " 
+                              Tag="
+SELECT TOP 1
+    M.ID,
+    M.First_Name,
+    M.Last_Name,
+    M.Phone,
+    SUM(S.Quantity) AS TotalSales
+FROM
+    Sales_Manager M
+JOIN
+    Sales S ON M.ID = S.Sales_Manager_ID
+GROUP BY
+    M.ID, M.First_Name, M.Last_Name, M.Phone
+ORDER BY
+    TotalSales DESC
+
+                              "/>
+                <ComboBoxItem Content=" Запит для отримання інформації про менеджера з продажу з найбільшою загальною сумою прибутку: " 
+                              Tag="
+SELECT TOP 1
+    M.ID,
+    M.First_Name,
+    M.Last_Name,
+    M.Phone,
+    SUM(S.Sale_Price) AS TotalProfit
+FROM
+    Sales_Manager M
+JOIN
+    Sales S ON M.ID = S.Sales_Manager_ID
+GROUP BY
+    M.ID, M.First_Name, M.Last_Name, M.Phone
+ORDER BY
+    TotalProfit DESC
+
+                              "/>
+
+                <ComboBoxItem Content=" Запит для отримання інформації про менеджера з продажу з найбільшою загальною сумою прибутку за вказаний проміжок часу: " 
+                              Tag="
+DECLARE @StartDate DATE = '2022-01-01';
+DECLARE @EndDate DATE = '2023-12-31';
+SELECT TOP 1
+    M.ID,
+    M.First_Name,
+    M.Last_Name,
+    M.Phone,
+    SUM(S.Sale_Price) AS TotalProfit
+FROM
+    Sales_Manager M
+JOIN
+    Sales S ON M.ID = S.Sales_Manager_ID
+WHERE
+    S.Sale_Date BETWEEN @StartDate AND @EndDate
+GROUP BY
+    M.ID, M.First_Name, M.Last_Name, M.Phone
+ORDER BY
+    TotalProfit DESC
+
+                              "/>
+
+                <ComboBoxItem Content=" Показати інформацію про фірму-покупця, яка зробила закупку на найбільшу суму: " 
+                              Tag="
+SELECT TOP 1
+    BC.ID AS BuyerCompanyId,
+    BC.Company_Name AS BuyerCompanyName,
+    SUM(S.Sale_Price) AS TotalPurchaseAmount
+FROM
+    Buyer_Company BC
+JOIN
+    Sales S ON BC.ID = S.Buyer_Company_ID
+GROUP BY
+    BC.ID, BC.Company_Name
+ORDER BY
+    TotalPurchaseAmount DESC;
+
+
+
+                              "/>
+
+                <ComboBoxItem Content=" Показати інформацію про тип канцтоварів з найбільшою кількістю одиниць продажів: " 
+                              Tag="
+SELECT TOP 1 ST.ID, ST.Name, SUM(S.Quantity) AS TotalSales
+FROM Stationery_Type ST
+JOIN Stationery S ON ST.ID = S.Type_ID
+GROUP BY ST.ID, ST.Name
+ORDER BY TotalSales DESC;
+
+                              "/>
+
+                <ComboBoxItem Content=" Показати інформацію про тип найприбутковіших канцтоварів: " 
+                              Tag="
+SELECT TOP 1 ST.ID, ST.Name, SUM(S.Cost * S.Quantity) AS TotalProfit
+FROM Stationery_Type ST
+JOIN Stationery S ON ST.ID = S.Type_ID
+GROUP BY ST.ID, ST.Name
+ORDER BY TotalProfit DESC;
+
+                              "/>
+
+                <ComboBoxItem Content=" Показати назву найпопулярніших канцтоварів (за кількістю проданих одиниць): " 
+                              Tag="
+SELECT TOP 5 S.ID, S.Name, SUM(S.Quantity) AS TotalSales
+FROM Stationery S
+GROUP BY S.ID, S.Name
+ORDER BY TotalSales DESC;
+
+                              "/>
+
+                <ComboBoxItem Content=" Показати назву канцтоварів, які не продавалися протягом заданої кількості днів: " 
+                              Tag="
+DECLARE @DaysWithoutSales INT = 30;
+
+SELECT
+    ST.Name AS StationeryName
+FROM
+    Stationery ST
+LEFT JOIN
+    Sales S ON ST.ID = S.Stationery_ID
+WHERE
+    S.ID IS NULL
+    OR  DATEADD(DAY, -@DaysWithoutSales, GETDATE()) > S.Sale_Date;
+                              "/>
+
             </ComboBox>
+            
         </WrapPanel>
 
         <DataGrid x:Name="DG_Table" Margin="0,20,0,0" AutoGenerateColumns="True"/>
